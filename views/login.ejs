@@ -22,32 +22,51 @@
 
 <div class="container">
 
-    <div class="row" style="margin-top: 100px">
+    <div class="row" style="margin-top: 5px">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span>登陆</span>
+            <div class="well">
+                <div class="text-right">
+                    <a href="about">关于</a>
                 </div>
-                <div class="panel-body">
-                    <form method="post" action="/register">
-                        <div class="input-group">
-                            <div class="input-group-addon">&nbsp;&nbsp;&nbsp;用户名：</div>
-                            <input type="text" class="form-control" id="username" name="username">
-                        </div>
 
-                        <div class="input-group" style="margin-top: 20px">
-                            <div class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
-                            <input type="password" class="form-control" id="password" name="password">
-                        </div>
+                <div class="h1 text-center">
+                    乐餐吧
+                </div>
+                <div class="text-center">
+                    V1.0
+                </div>
+                <div class="text-center" style="margin-top: 50px; margin-bottom: 50px">
+                    便捷点餐，欢乐加班
+                </div>
 
-                        <button type="submit" class="btn btn-success" style="margin-top: 20px; width: 100%;">登陆</button>
-                    </form>
+                <form method="post" action="/register">
+                    <div class="input-group">
+                        <div class="input-group-addon">&nbsp;&nbsp;&nbsp;用户名：</div>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+                    </div>
+
+                    <div class="input-group" style="margin-top: 20px">
+                        <div class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+                    </div>
+
+                    <button type="submit" class="btn btn-success" style="margin-top: 20px; width: 100%;">登陆</button>
+                </form>
+
+                <div class="text-center" style="margin-top: 30px; margin-bottom: 30px">
+                    <a href="change-password">忘记密码</a>
+                </div>
+
+                <div class="text-center" style="margin-top: 30px; margin-bottom: 30px">
+                    仅限鑫乐居内部员工使用
                 </div>
             </div>
         </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
 
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <img src="/images/a4.jpg" style="width: 100%; margin-bottom: 20px" class="img-rounded img-responsive">
         </div>
     </div>
 </div>

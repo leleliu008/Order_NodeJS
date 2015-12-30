@@ -577,8 +577,8 @@ footer {
 .h1 {
     font-size: 24px;
     font-weight: bold;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     color: black;
 }
 
