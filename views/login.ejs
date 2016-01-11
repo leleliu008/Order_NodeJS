@@ -11,7 +11,6 @@
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
 
-    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/browserChecker.js"></script>
 
     <!--[if lt IE 9]>
@@ -42,19 +41,21 @@
                     便捷点餐，欢乐加班
                 </div>
 
-                <form method="post" action="/register">
+                <div>
                     <div class="input-group">
                         <div class="input-group-addon">&nbsp;&nbsp;&nbsp;用户名：</div>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名，最长16个字符">
                     </div>
 
                     <div class="input-group" style="margin-top: 20px">
                         <div class="input-group-addon">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码，6~16个字符">
                     </div>
 
-                    <button type="submit" class="btn btn-success" style="margin-top: 20px; width: 100%;">登陆</button>
-                </form>
+                    <button id="loginBtn" class="btn btn-success" style="margin-top: 20px; width: 100%;">
+                        登陆
+                    </button>
+                </div>
 
                 <div class="text-center" style="margin-top: 30px; margin-bottom: 30px">
                     <a href="change-password">忘记密码</a>
@@ -73,6 +74,82 @@
 
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/layer/layer.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#loginBtn').click(function () {
+            var userName = $('#username').val();
+            var password = $('#password').val();
 
+            if (!userName) {
+                layer.alert('请输入用户名，最多16位字符', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+                return;
+            }
+
+            if (password) {
+                if (password.length < 6) {
+                    layer.alert('请至少输入6位密码', {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                    return;
+                }
+            } else {
+                layer.alert('请输入6~16位密码', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+                return;
+            }
+
+            $.ajax({
+                url: 'login',                 //请求的url地址，这是相对于现在的位置的地址
+                dataType: 'json',             //返回格式为json
+                async: true,                  //请求是否异步，默认为异步，这也是ajax重要特性
+                data: {'username': userName, 'password': password},   //参数值
+                type: 'POST',                  //请求方式
+                beforeSend: function () {      //请求前的处理
+
+                },
+                success: function (response) {      //请求成功时处理
+                    var errMsg = '登陆失败';
+
+                    if (response) {
+                        if (response.code == 0 && response.userId) {
+                            location.href = '/';
+                            return;
+                        }
+
+                        if (response.message) {
+                            errMsg = response.message;
+                        }
+                    }
+
+                    layer.alert(errMsg, {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                error: function () {          //请求出错处理
+                    layer.alert('请求失败，请重试！', {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                complete: function () {       //请求完成的处理
+
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

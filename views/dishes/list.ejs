@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>晚上加班点餐系统———美食列表</title>
+
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/browserChecker.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="/javascripts/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body style="font-size: 12px">
+
+<div class="container">
+
+    <div class="row" style="margin-top: 5px">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="h1 text-center">乐餐吧</div>
+                </div>
+
+                <div class="common_item" style="margin-left: 15px">
+                    <img src="<%= restaurant.icon %>" class="img-rounded img-responsive common_item_left">
+                    <div class="common_item_right">
+                        <div class="common_item_right_title">
+                            <%= restaurant.name %>
+                        </div>
+                        <div class="common_item_right_summary">
+                            <%= restaurant.phoneNumber %>
+                        </div>
+                    </div>
+                </div>
+
+                <% if (dishes) { %>
+                <div>
+                    <ul class="list-group" style="width: 100px; float: left">
+                        <% var classfies = restaurant.classifies.split('|'); %>
+                        <% for (var i = 0; i < classfies.length; i++ ) { %>
+                        <% var classfy = classfies[i] %>
+                        <li class="list-group-item">
+                            <a href="#<%= i %>">
+                                <div>
+                                    <%= classfy %>
+                                </div>
+                            </a>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <div style="margin-left: 100px">
+                        <% var classfies = restaurant.classifies.split('|'); %>
+                        <% for (var i = 0; i < classfies.length; i++ ) { %>
+                        <% var classfy = classfies[i] %>
+                        <ul class="list-group" id="<%= i %>">
+                            <% if (i == 0) { %>
+                            <li class="list-group-item">
+                                <% } else { %>
+                            <li class="list-group-item hidden">
+                                <% } %>
+                                <% dishes[classfy].forEach(function(dish) { %>
+                                <div class="common_item" style="display: block; margin-right: 0px">
+                                    <img src="<%= dish.icon %>" class="img-responsive img-rounded common_item_left">
+                                    <div class="common_item_right">
+                                        <div class="common_item_right_title">
+                                            <%= dish.name %>
+                                        </div>
+                                        <div class="common_item_right_summary">
+                                            价格：<%= dish.price %>元
+                                        </div>
+                                    </div>
+                                    <img src="<%= dish.icon %>" class="img-responsive img-rounded"
+                                         style="float:right; width: 25px; height: 25px; margin-top: 10px; vertical-align: middle">
+                                </div>
+                                <% }); %>
+                            </li>
+                        </ul>
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+
+                <a class="btn btn-success clearfix" id="commitBtn">选好了</a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+    </div>
+</div>
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/layer/layer.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#commitBtn').click(function () {
+
+            $.ajax({
+                url: '/order',                 //请求的url地址，这是相对于现在的位置的地址
+                dataType: 'json',             //返回格式为json
+                async: true,                  //请求是否异步，默认为异步，这也是ajax重要特性
+                data: {},   //参数值
+                type: 'POST',                  //请求方式
+                beforeSend: function () {      //请求前的处理
+
+                },
+                success: function (response) {      //请求成功时处理
+                    var errMsg = '创建订单失败';
+
+                    if (response) {
+                        if (response.code == 0) {
+                            location.href = '/order/success';
+                            return;
+                        }
+
+                        if (response.message) {
+                            errMsg = response.message;
+                        }
+                    }
+
+                    layer.alert(errMsg, {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                error: function () {          //请求出错处理
+                    layer.alert('请求失败，请重试！', {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                complete: function () {       //请求完成的处理
+
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
