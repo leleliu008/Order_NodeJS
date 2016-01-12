@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <title>晚上加班点餐系统———提交成功</title>
+    <title>晚上加班点餐系统———我的订单</title>
 
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
@@ -32,10 +32,6 @@
                     <div class="h1 text-center">乐餐吧</div>
                 </div>
                 <div class="text-center" style="padding-top: 40px; padding-bottom: 40px">
-                    <img src="/images/success.png" style="width: 100px"/>
-                    <div class="h1">
-                        提交成功
-                    </div>
                     <div class="h4">
                         总价：<%= totalPrice %>元
                     </div>
@@ -49,7 +45,7 @@
                         一个砂锅豆腐
                     </div>
 
-                    <a href="/" class="btn btn-success" style="width: 70%; margin-top: 30px">确定</a>
+                    <button id="okBtn" class="btn btn-success" style="width: 70%; margin-top: 30px">确定</button>
                 </div>
             </div>
         </div>
@@ -61,6 +57,12 @@
 
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+<script>
+    $(document).ready(function () {
+        $('#okBtn').click(function () {
+            history.go(-1);
+        });
+    });
+</script>
 </body>
 </html>

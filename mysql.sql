@@ -48,10 +48,15 @@ CREATE TABLE IF NOT EXISTS t_dishes (
 
 CREATE TABLE IF NOT EXISTS t_order (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    selected_date VARCHAR(50) NOT NULL DEFAULT '2015-12-30',
+    selected_date VARCHAR(50) NOT NULL DEFAULT '1970-01-01',
     user_id int NOT NULL,
 	dishes_id int NOT NULL);
 
+CREATE TABLE IF NOT EXISTS t_order_detail (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    order_id int NOT NULL,
+	dishes_id int NOT NULL,
+	dishes_count int NOT NULL);
 
 INSERT INTO t_user (name, password, realName) VALUES ('fpliu', 'e10adc3949ba59abbe56e057f20f883e', '刘富频');
 
