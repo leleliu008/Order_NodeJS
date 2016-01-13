@@ -35,7 +35,7 @@
                     </a>
                 </div>
 
-                <div class="common_item" style="margin-left: 15px">
+                <div class="common_item" style="margin-left: 15px;">
                     <img src="<%= restaurant.icon %>" class="img-rounded img-responsive common_item_left">
                     <div class="common_item_right">
                         <div class="common_item_right_title">
@@ -47,73 +47,68 @@
                     </div>
                 </div>
 
+                <hr style="margin: 0px">
+
                 <% if (dishes) { %>
-                <div style="position: relative; max-height: 500px">
-                    <div class="clearfix">
-                        <ul class="list-group" style="width: 70px; height: 100%; float: left">
-                            <% var classfies = restaurant.classifies.split('|'); %>
-                            <% for (var i = 0; i < classfies.length; i++ ) { %>
-                            <% var classfy = classfies[i] %>
-                            <li class="list-group-item" style="border-radius: 0px; border-left: 0px">
-                                <a href="#<%= i %>">
-                                    <div style="font-size: 13px">
-                                        <%= classfy %>
-                                    </div>
-                                </a>
-                            </li>
-                            <% } %>
-                        </ul>
-
-                        <div style="margin-left: 70px">
-                            <% var classfies = restaurant.classifies.split('|'); %>
-                            <% for (var i = 0; i < classfies.length; i++ ) { %>
-                            <% var classfy = classfies[i] %>
-                            <% if (i == 0) { %>
-                            <ul class="list-group" id="<%= i %>" style="max-height: 500px; overflow: scroll">
-                                <% } else { %>
-                                <ul class="list-group hidden" id="<%= i %>">
-                                    <% } %>
-
-                                    <% dishes[classfy].forEach(function(dish) { %>
-                                    <li class="list-group-item"
-                                        style="border-radius: 0px; border-left: 0px; border-right: 0px">
-                                        <div class="common_item" style="display: block; margin-right: 0px">
-                                            <img src="<%= dish.icon %>"
-                                                 class="img-responsive img-rounded common_item_left">
-                                            <div class="common_item_right">
-                                                <div class="common_item_right_title" style="font-size: 13px">
-                                                    <%= dish.name %>
-                                                </div>
-                                                <div class="common_item_right_summary" style="font-size: 13px">
-                                                    价格：<%= dish.price %>元
-                                                </div>
-                                            </div>
-                                            <div class="pull-right"
-                                                 style="height: 50px; padding-top: 12.5px; padding-bottom: 12.55px">
-                                                <img src="/images/decrease.png" class="img-responsive img-rounded"
-                                                     style="width: 30px; height: 30px; display: inline-block">
-                                                <span style="width: 10px; height: 30px; display: inline-block; line-height:30px; vertical-align: middle"
-                                                      class="text-center">0</span>
-                                                <img src="/images/increase.png" class="img-responsive img-rounded"
-                                                     style="width: 30px; height: 30px; display: inline-block">
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <% }); %>
-                                </ul>
+                    <div style="position: relative; max-height: 500px">
+                        <div class="clearfix">
+                            <ul class="list-group" style="width: 70px; height: 100%; float: left">
+                                <% var classfies = restaurant.classifies.split('|'); %>
+                                <% for (var i = 0; i < classfies.length; i++ ) { %>
+                                <% var classfy = classfies[i] %>
+                                <li id="classfy<%= i %>" class="list-group-item"
+                                    style="border-radius: 0px; border-left: 0px; font-size: 13px">
+                                    <%= classfy %>
+                                </li>
                                 <% } %>
                             </ul>
-                        </div>
-                    </div>
 
-                    <div style="background-color:orangered; width:100%; position:absolute; left: 0px; bottom: -40px; padding: 10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px">
-                        <span>总价：</span><span style="font-size: 28px">28</span><span>元</span>
+                            <div style="margin-left: 70px">
+                                <% var classfies = restaurant.classifies.split('|'); %>
+                                <% for (var i = 0; i < classfies.length; i++) { %>
+                                    <% if (i == 0) { %>
+                                        <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 500px; overflow: scroll">
+                                    <% } else { %>
+                                        <ul class="list-group hidden" id="dishes_list<%= i %>">
+                                    <% } %>
+
+                                    <% for (var j = 0; j < dishes[i].length; j++) { %>
+                                        <% var dish = dishes[i][j] %>
+                                        <li class="list-group-item" style="border-radius: 0px; border-left: 0px; border-right: 0px">
+                                            <div class="common_item" style="display: block; margin-right: 0px">
+                                                <img src="<%= dish.icon %>" class="img-responsive img-rounded common_item_left">
+                                                <div class="common_item_right">
+                                                    <div class="common_item_right_title" style="font-size: 13px">
+                                                        <%= dish.name %>
+                                                    </div>
+                                                    <div class="common_item_right_summary" style="font-size: 13px">
+                                                        价格：<%= dish.price %>元
+                                                    </div>
+                                                </div>
+                                                <div class="pull-right" style="height: 50px; padding-top: 12.5px; padding-bottom: 12.55px">
+                                                    <img id="decrease_<%= i %>_<%= j %>" src="/images/decrease.png" class="img-responsive img-rounded"
+                                                         style="width: 30px; height: 30px; display: inline-block">
+                                                    <span id="count_<%= i %>_<%= j %>" style="width: 10px; height: 30px; display: inline-block; line-height:30px; vertical-align: middle"
+                                                          class="text-center">0</span>
+                                                    <img id="increase_<%= i %>_<%= j %>" src="/images/increase.png" class="img-responsive img-rounded"
+                                                         style="width: 30px; height: 30px; display: inline-block">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                <% } %>
+                            </div>
+                        </div>
+
+                        <div style="background-color:orangered; width:100%; position:absolute; left: 0px; bottom: -40px; padding: 10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px">
+                            <span>总价：</span><span id="totalPrice" style="font-size: 28px">0</span><span>元</span>
                             <span class="pull-right" style="display: block">
                                 <span style="font-size: 10px">不要超过28元哟！</span>
                                 <a class="btn btn-success" id="commitBtn">选好了</a>
                             </span>
+                        </div>
                     </div>
-                </div>
                 <% } %>
             </div>
         </div>
@@ -128,11 +123,93 @@
 <script src="/javascripts/layer/layer.js"></script>
 <script>
     $(document).ready(function () {
+        var lastSelectedClassfyIndex = 0;
+        var currentSelectedClassfyIndex = 0;
+
+        var restaurant = '<%- JSON.stringify(restaurant) %>';
+        restaurant = JSON.parse(restaurant);
+
+        var dishes = '<%- JSON.stringify(dishes) %>';
+        dishes = JSON.parse(dishes);
+
+        var classfies = restaurant.classifies.split('|');
+        for (var i = 0; i < classfies.length; i++) {
+            (function(i) {
+                //注册分类的点击事件
+                $('#classfy' + i).click(function() {
+                    currentSelectedClassfyIndex = i;
+                    $('#dishes_list' + lastSelectedClassfyIndex).hide();
+                    $('#dishes_list' + currentSelectedClassfyIndex).show();
+                });
+
+                //注册加减按钮的点击事件
+                for (var j = 0; j < dishes[i].length; j++) {
+                    (function(j) {
+                        dishes[i][j]['count'] = 0;
+
+                        $('#decrease_' + i + '_' + j).click(function() {
+                            if (dishes[i][j]['count'] > 0) {
+                                dishes[i][j]['count'] -= 1;
+                                $('#count_' + i + '_' + j).html(dishes[i][j]['count']);
+                                var totalPrice = getTotalPrice();
+                                $('#totalPrice').html(totalPrice);
+                            }
+                        });
+                        $('#increase_' + i + '_' + j).click(function() {
+                            var totalPrice = getTotalPrice();
+                            var newTotalPrice = totalPrice + dishes[i][j].price;
+                            if (newTotalPrice > 28) {
+                                layer.alert('总金额不能超过28元', {
+                                    skin: 'layui-layer-molv',  //样式类名
+                                    closeBtn: 0,
+                                    shift: 2 //动画类型
+                                });
+                            } else {
+                                dishes[i][j]['count'] += 1;
+                                $('#count_' + i + '_' + j).html(dishes[i][j]['count']);
+                                $('#totalPrice').html(newTotalPrice);
+                            }
+                        });
+                    })(j);
+                }
+            })(i);
+        }
+
+        //获取当前总金额
+        function getTotalPrice() {
+            var totalPrice = 0;
+            for (var i = 0; i < dishes.length; i++) {
+                for (var j = 0; j < dishes[i].length; j++) {
+                    if (dishes[i][j].price) {
+                        totalPrice += dishes[i][j].price * dishes[i][j].count;
+                    }
+                }
+            }
+            return totalPrice;
+        }
+
         $('#commitBtn').click(function () {
-            var orders = [
-                {dishes_id: 1, dishes_count: 2},
-                {dishes_id: 2, dishes_count: 1}
-            ];
+            var orders = [];
+
+            for (var i = 0; i < dishes.length; i++) {
+                for (var j = 0; j < dishes[i].length; j++) {
+                    if (dishes[i][j].count > 0) {
+                        var obj = {dishes_id: dishes[i][j].id, dishes_count: dishes[i][j].count};
+                        orders.push(obj);
+                    }
+                }
+            }
+
+            console.log(JSON.stringify(orders));
+
+            if (orders.length == 0) {
+                layer.alert('请至少选择一个菜', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+            }
+
             $.ajax({
                 url: '/order',                //请求的url地址，这是相对于现在的位置的地址
                 dataType: 'json',             //返回格式为json

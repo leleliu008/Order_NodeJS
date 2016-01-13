@@ -135,16 +135,19 @@ router.get('/dishes/list/:restaurantId', function (request, response, next) {
                                 map.get(dish.classify).add(dish);
                             });
 
-                            var xx = {};
-                            map.keySet().forEach(function (item) {
+                            var dishes = [];
+                            var keySet = map.keySet();
+                            for (var i = 0; i < keySet.length; i++) {
+                                var item = keySet[i];
                                 console.log('item = ' + item);
                                 var value = map.get(item).asArray();
                                 console.log('value = ' + JSON.stringify(value));
-                                xx[item] = value;
-                            });
-                            console.log('xx = ' + JSON.stringify(xx));
+                                dishes[i] = value;
+                            }
 
-                            var body = {'restaurant': restaurants[0], 'dishes': xx};
+                            console.log('dishes = ' + JSON.stringify(dishes));
+
+                            var body = {'restaurant': restaurants[0], 'dishes': dishes};
                             console.log('body = ' + JSON.stringify(body));
                             response.render('dishes/list', body);
                         }
