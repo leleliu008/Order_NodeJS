@@ -37,16 +37,10 @@
                         提交成功
                     </div>
                     <div class="h4">
-                        总价：<%= totalPrice %>元
+                        <span>总价：</span><span id="totalPrice"></span><span>元</span>
                     </div>
-                    <div style="font-size: 14px; color: #c72323; margin-top: 5px; margin-bottom: 5px">
-                        一杯豆浆
-                    </div>
-                    <div style="font-size: 14px; color: #c72323; margin-top: 5px; margin-bottom: 5px">
-                        一个酱肉烧饼
-                    </div>
-                    <div style="font-size: 14px; color: #c72323; margin-top: 5px; margin-bottom: 5px">
-                        一个砂锅豆腐
+                    <div id="dishes" style="font-size: 14px; color: #c72323">
+
                     </div>
 
                     <a href="/" class="btn btn-success" style="width: 70%; margin-top: 30px">确定</a>
@@ -61,6 +55,60 @@
 
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/layer/layer.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/mine/order/info',      //请求的url地址，这是相对于现在的位置的地址
+            dataType: 'json',             //返回格式为json
+            async: true,                  //请求是否异步，默认为异步，这也是ajax重要特性
+            data: {},                     //参数值
+            type: 'GET',                  //请求方式
+            beforeSend: function () {      //请求前的处理
 
+            },
+            success: function (response) {      //请求成功时处理
+                console.log('response = ' + JSON.stringify(response));
+
+                var errMsg = '请求失败';
+
+                if (response) {
+                    if (response.code == 0 && response.dishes && response.dishes.length > 0) {
+                        var totalPrice = 0;
+                        response.dishes.forEach(function (item) {
+                            totalPrice += (item.price * item.count);
+
+                            $('#dishes').append("<div style='font-size: 14px; color: #c72323; margin-top: 5px; margin-bottom: 5px'>" + item.count + "个" + item.name + "</div>");
+                        });
+
+                        $('#totalPrice').html(totalPrice);
+
+                        return;
+                    }
+
+                    if (response.message) {
+                        errMsg = response.message;
+                    }
+                }
+
+                layer.alert(errMsg, {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+            },
+            error: function () {          //请求出错处理
+                layer.alert('请求失败，请重试！', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+            },
+            complete: function () {       //请求完成的处理
+
+            }
+        });
+    });
+</script>
 </body>
 </html>

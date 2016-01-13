@@ -5,7 +5,7 @@ var getcookieValue = require('./cookies_util.js');
 
 var MySQLClient = require('./mysql_util.js');
 var mysqlClinet = new MySQLClient();
-mysqlClinet.connect(function(err) {
+mysqlClinet.connect(function (err) {
     if (err) {
         console.log(err.stack);
     } else {
@@ -187,50 +187,9 @@ router.post('/order', function (request, response, next) {
                     var orders = eval(request.body.orders);
 
                     if (orders && orders.length > 0) {
-                        orders.forEach(function(order) {
-                            var dishes_id = order.dishes_id;
-                            var dishes_count = order.dishes_count;
-
-                            console.log('dishes_id = ' + dishes_id);
-                            console.log('dishes_count = ' + dishes_count);
-
-                            mysqlClinet.exec('INSERT INTO t_order (selected_date, user_id, dishes_id) VALUES (?, ?, ?)', [str, userId, dishes_id], function (err, rows, fields) {
-                                if (err) {
-                                    console.log(err.stack);
-
-                                    var error = {
-                                        code: 1,
-                                        message: '服务器异常'
-                                    };
-                                    response.send(error);
-                                } else {
-                                    console.log('INSERT INTO t_order (selected_date, user_id, dishes_id) VALUES (?, ?, ?) success');
-
-                                    console.log('rows = ' + JSON.stringify(rows));
-                                    console.log('fields = ' + JSON.stringify(fields));
-
-                                    mysqlClinet.exec('INSERT INTO t_order_detail (order_id, dishes_id, dishes_count) VALUES (?, ?, ?)', [rows.insertId, dishes_id, dishes_count], function (err, rows, fieds) {
-                                        if (err) {
-                                            console.log(err.stack);
-
-                                            var error = {
-                                                code: 1,
-                                                message: '服务器异常'
-                                            };
-                                            response.send(error);
-                                        } else {
-                                            console.log('INSERT INTO t_order_detail  (order_id, dishes_id, dishes_count) VALUES (?, ?, ?) success');
-
-                                            var success = {
-                                                code: 0,
-                                                message: '提交订单成功'
-                                            };
-                                            response.send(success);
-                                        }
-                                    });
-                                }
-                            });
-                        });
+                        for (var i in orders) {
+                            insert_order(today, userId, orders, i, response);
+                        }
                     }
                 }
             }
@@ -244,17 +203,49 @@ router.post('/order', function (request, response, next) {
     }
 });
 
+function insert_order(today, userId, orders, i, response) {
+    var order = orders[i];
+    var dishes_id = order.dishes_id;
+    var dishes_count = order.dishes_count;
+
+    console.log('dishes_id = ' + dishes_id);
+    console.log('dishes_count = ' + dishes_count);
+
+    mysqlClinet.exec('INSERT INTO t_order (selected_date, user_id, dishes_id, dishes_count) VALUES (?, ?, ?, ?)', [today, userId, dishes_id, dishes_count], function (err, rows, fields) {
+        if (err) {
+            console.log(err.stack);
+
+            var error = {
+                code: 1,
+                message: '服务器异常'
+            };
+            response.send(error);
+        } else {
+            console.log('INSERT INTO t_order (selected_date, user_id, dishes_id, dishes_count) VALUES (?, ?, ?, ?) success');
+
+            //最后一次
+            if (i == orders.length - 1) {
+                var success = {
+                    code: 0,
+                    message: '提交订单成功'
+                };
+                response.send(success);
+            }
+        }
+    });
+}
+
 /* 获取提交订单成功界面 */
 router.get('/order/success', function (request, response, next) {
     response.render('order/success', {totalPrice: 28});
 });
 
-/* 获取我的界面 */
+/* 获取我的信息界面 */
 router.get('/mine', function (request, response, next) {
     response.render('mine', {totalPrice: 28});
 });
 
-/* 获取我的界面 */
+/* 获取我的信息的API */
 router.get('/mine/info', function (request, response, next) {
     var userId = getcookieValue(request, 'userId');
     if (userId) {
@@ -298,73 +289,39 @@ router.get('/mine/order', function (request, response, next) {
     response.render('order/my_order', {});
 });
 
-/* 获取我的订单界面 */
+/* 获取我的订单API */
 router.get('/mine/order/info', function (request, response, next) {
     var userId = getcookieValue(request, 'userId');
     if (userId) {
         var today = getDayFormat();
         console.log('today = ' + today);
 
-        mysqlClinet.exec('SELECT id FROM t_order WHERE user_id = ? AND selected_date = ?', [userId, today], function (err, orders, fieds) {
+        //查询订单表，看是否已经创建过今天的订单
+        mysqlClinet.exec('SELECT id, dishes_id, dishes_count FROM t_order WHERE user_id = ? AND selected_date = ?', [userId, today], function (err, orders, fieds) {
             if (err) {
+                console.log(err.stack);
+
                 var result = {
                     code: 1,
                     message: '服务端异常'
                 };
                 response.send(result);
             } else {
-                console.log('SELECT id FROM t_order WHERE user_id = ? AND selected_date = ? success');
+                console.log('SELECT id, dishes_id, dishes_count FROM t_order WHERE user_id = ? AND selected_date = ? success');
 
-                if (orders.length == 0) {
+                if (!orders || orders.length == 0) {
                     var result = {
                         code: 2,
                         message: '今天您还没有创建订单'
                     };
                     response.send(result);
                 } else {
-                    mysqlClinet.exec('SELECT dishes_id, dishes_count FROM t_order_detail WHERE order_id = ?', [orders[0].id], function (err, order_details, fieds) {
-                        if (err) {
-                            var result = {
-                                code: 1,
-                                message: '服务端异常'
-                            };
-                            response.send(result);
-                        } else {
-                            console.log('SELECT id FROM t_order WHERE user_id = ? AND selected_date = ? success');
+                    var array = [];
+                    for (var i = 0; i < orders.length; i++) {
+                        console.log('i = ' + i);
 
-                            if (order_details.length == 0) {
-                                var result = {
-                                    code: 3,
-                                    message: '数据有异常，请联系管理员'
-                                };
-                                response.send(result);
-                            } else {
-                                order_details.forEach(function(order_detail) {
-                                    mysqlClinet.exec('SELECT name, price FROM t_dishes WHERE id = ?', [order_detail.dishes_id], function (err, dishes, fieds) {
-                                        if (err) {
-                                            var result = {
-                                                code: 1,
-                                                message: '服务端异常'
-                                            };
-                                            response.send(result);
-                                        } else {
-                                            console.log('SELECT name, price FROM t_dishes WHERE id = ? success');
-
-                                            if (dishes.length == 0) {
-                                                var result = {
-                                                    code: 3,
-                                                    message: '数据有异常，请联系管理员'
-                                                };
-                                                response.send(result);
-                                            } else {
-
-                                            }
-                                        }
-                                    });
-                                });
-                            }
-                        }
-                    });
+                        queryDishes(orders, i, array, response);
+                    }
                 }
             }
         });
@@ -377,13 +334,50 @@ router.get('/mine/order/info', function (request, response, next) {
     }
 });
 
+function queryDishes(orders, i, array, response) {
+    //查询菜单表
+    mysqlClinet.exec('SELECT name, price FROM t_dishes WHERE id = ?', [orders[i].dishes_id], function (err, dishes, fieds) {
+        if (err) {
+            console.log(err.stack);
+
+            var result = {
+                code: 1,
+                message: '服务端异常'
+            };
+            response.send(result);
+        } else {
+            console.log('SELECT name, price FROM t_dishes WHERE id = ? success');
+
+            if (dishes.length == 0) {
+                var result = {
+                    code: 3,
+                    message: '数据有异常，请联系管理员'
+                };
+                response.send(result);
+            } else {
+                dishes[0].count = orders[i].dishes_count;
+                array[i] = dishes[0];
+
+                if (i == orders.length - 1) {
+                    var result = {
+                        code: 0,
+                        message: '成功',
+                        dishes: array
+                    };
+                    response.send(result);
+                }
+            }
+        }
+    });
+}
+
 /* 关于. */
 router.get('/about', function (req, res, next) {
     res.render('about', {});
 });
 
 /* 修改密码. */
-router.get('/change-password', function (req, res, next) {
+router.get('/mine/change-password', function (req, res, next) {
     res.render('change-password', {});
 });
 

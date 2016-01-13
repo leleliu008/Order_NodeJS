@@ -64,47 +64,48 @@
                             </li>
                             <% } %>
                         </ul>
+
                         <div style="margin-left: 70px">
                             <% var classfies = restaurant.classifies.split('|'); %>
                             <% for (var i = 0; i < classfies.length; i++ ) { %>
                             <% var classfy = classfies[i] %>
+                            <% if (i == 0) { %>
                             <ul class="list-group" id="<%= i %>">
-                                <% if (i == 0) { %>
-                                <li class="list-group-item"
-                                    style="border-radius: 0px; border-left: 0px; border-right: 0px">
-                                    <% } else { %>
-                                <li class="list-group-item hidden"
-                                    style="border-radius: 0px; border-left: 0px; border-right: 0px">
+                                <% } else { %>
+                                <ul class="list-group hidden" id="<%= i %>">
                                     <% } %>
+
                                     <% dishes[classfy].forEach(function(dish) { %>
-                                    <div class="common_item" style="display: block; margin-right: 0px">
-                                        <img src="<%= dish.icon %>" class="img-responsive img-rounded common_item_left">
-                                        <div class="common_item_right">
-                                            <div class="common_item_right_title" style="font-size: 13px">
-                                                <%= dish.name %>
-                                            </div>
-                                            <div class="common_item_right_summary" style="font-size: 13px">
-                                                价格：<%= dish.price %>元
-                                            </div>
-                                        </div>
-                                        <div class="pull-right">
-                                            <form class="form-inline">
-                                                <div class="input-group">
-                                                    <a href="" id="decrease<%= i %>" class="input-group-addon">-</a>
-                                                    <input id="count<%= i %>" type="text"
-                                                           class="form-control text-center" value="0"
-                                                           style="width: 20px; padding: 0px">
-                                                    <a href="" id="increase<%= i %>" class="input-group-addon">+</a>
+                                    <li class="list-group-item"
+                                        style="border-radius: 0px; border-left: 0px; border-right: 0px">
+                                        <div class="common_item" style="display: block; margin-right: 0px">
+                                            <img src="<%= dish.icon %>"
+                                                 class="img-responsive img-rounded common_item_left">
+                                            <div class="common_item_right">
+                                                <div class="common_item_right_title" style="font-size: 13px">
+                                                    <%= dish.name %>
                                                 </div>
-                                            </form>
+                                                <div class="common_item_right_summary" style="font-size: 13px">
+                                                    价格：<%= dish.price %>元
+                                                </div>
+                                            </div>
+                                            <div class="pull-right"
+                                                 style="height: 50px; padding-top: 12.5px; padding-bottom: 12.55px">
+                                                <img src="<%= dish.icon %>" class="img-responsive img-rounded"
+                                                     style="width: 25px; height: 25px; display: inline-block">
+                                                <span style="width: 25px; height: 25px; display: inline-block"
+                                                      class="text-center">0</span>
+                                                <img src="<%= dish.icon %>" class="img-responsive img-rounded"
+                                                     style="width: 25px; height: 25px; display: inline-block">
+                                            </div>
                                         </div>
-                                    </div>
+                                    </li>
                                     <% }); %>
-                                </li>
-                            </ul>
-                            <% } %>
+                                </ul>
+                                <% } %>
                         </div>
                     </div>
+
                     <div style="background-color:orangered; width:100%; position:absolute; left: 0px; bottom: -40px; padding: 10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px">
                         <span>总价：</span><span style="font-size: 28px">28</span><span>元</span>
                             <span class="pull-right" style="display: block">
@@ -130,12 +131,15 @@
 
 
         $('#commitBtn').click(function () {
-            var cc = [{dishes_id: 1, dishes_count: 2}];
+            var orders = [
+                {dishes_id: 1, dishes_count: 2},
+                {dishes_id: 2, dishes_count: 1}
+            ];
             $.ajax({
                 url: '/order',                //请求的url地址，这是相对于现在的位置的地址
                 dataType: 'json',             //返回格式为json
                 async: true,                  //请求是否异步，默认为异步，这也是ajax重要特性
-                data: {orders: JSON.stringify(cc)},   //参数值
+                data: {orders: JSON.stringify(orders)},   //参数值
                 type: 'POST',                 //请求方式
                 beforeSend: function () {     //请求前的处理
 
