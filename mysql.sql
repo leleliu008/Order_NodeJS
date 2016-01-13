@@ -53,9 +53,36 @@ CREATE TABLE IF NOT EXISTS t_order (
 	dishes_id int NOT NULL,
 	dishes_count int NOT NULL);
 
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('http://imgsrc.baidu.com/baike/pic/item/a686c9177f3e670925bea1353bc79f3df9dc55ba.jpg', 'test', 'e10adc3949ba59abbe56e057f20f883e', '测试', '15656059397');
+INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'test', 'e10adc3949ba59abbe56e057f20f883e', '测试', '15656059397');
 
-INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('http://imgsrc.baidu.com/baike/pic/item/a686c9177f3e670925bea1353bc79f3df9dc55ba.jpg', '半亩园', '15656059397', '面条类|砂锅类|烧饼类|小菜类|盖饭类|小吃类|饮料类');
+INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('http://1684.dv37.com/upload/agent/201108/dc4b835a07a00f4ceaaa399adf7707ee.jpg', '半亩园', '15656059397', '面条类|砂锅类|烧饼类|小菜类|盖饭类|小吃类|饮料类');
+INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('http://1684.dv37.com/upload/agent/201108/dc4b835a07a00f4ceaaa399adf7707ee.jpg', '一亩园', '15656059397', '面条类|砂锅类|烧饼类|小菜类|盖饭类|小吃类|饮料类');
 
 INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '番茄鸡蛋拌面', 11.0, '面条类', 1);
-INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '东北拉皮', 11.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '茄子肉末拌面', 12.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '香菇肉臊拌面', 12.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '炸酱面', 16.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '榨菜肉丝汤面', 15.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '酸菜老鸭汤面', 18.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '番茄牛肉面（小）', 18.0, '面条类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '番茄牛肉面（大）', 26.0, '面条类', 1);
+
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '砂锅豆腐', 18.0, '砂锅类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '酸菜白肉砂锅', 18.0, '砂锅类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '丸子砂锅', 18.0, '砂锅类', 1);
+
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '酱肉烧饼', 8.0, '烧饼类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '拉孜鲜肉烧饼', 8.0, '烧饼类', 1);
+
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '豇豆花仁', 5.0, '小菜类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '雪莱毛豆百叶', 5.0, '小菜类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '酱萝卜', 5.0, '小菜类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '酸辣黄瓜条', 5.0, '小菜类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '黄豆肉皮冻', 6.0, '小菜类', 1);
+
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '鱼香肉丝盖饭', 15.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '千页豆腐盖饭', 16.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '红烧肉骨饭', 16.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '红烧牛肉饭', 17.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '台式卤肉饭', 18.0, '盖饭类', 1);
+

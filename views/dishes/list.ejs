@@ -21,7 +21,6 @@
 <body style="font-size: 12px">
 
 <div class="container">
-
     <div class="row" style="margin-top: 5px">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
 
@@ -51,7 +50,7 @@
                 <% if (dishes) { %>
                 <div style="position: relative; max-height: 500px">
                     <div class="clearfix">
-                        <ul class="list-group" style="width: 70px; float: left">
+                        <ul class="list-group" style="width: 70px; height: 100%; float: left">
                             <% var classfies = restaurant.classifies.split('|'); %>
                             <% for (var i = 0; i < classfies.length; i++ ) { %>
                             <% var classfy = classfies[i] %>
@@ -70,7 +69,7 @@
                             <% for (var i = 0; i < classfies.length; i++ ) { %>
                             <% var classfy = classfies[i] %>
                             <% if (i == 0) { %>
-                            <ul class="list-group" id="<%= i %>">
+                            <ul class="list-group" id="<%= i %>" style="max-height: 500px; overflow: scroll">
                                 <% } else { %>
                                 <ul class="list-group hidden" id="<%= i %>">
                                     <% } %>
@@ -91,18 +90,19 @@
                                             </div>
                                             <div class="pull-right"
                                                  style="height: 50px; padding-top: 12.5px; padding-bottom: 12.55px">
-                                                <img src="<%= dish.icon %>" class="img-responsive img-rounded"
-                                                     style="width: 25px; height: 25px; display: inline-block">
-                                                <span style="width: 25px; height: 25px; display: inline-block"
+                                                <img src="/images/decrease.png" class="img-responsive img-rounded"
+                                                     style="width: 30px; height: 30px; display: inline-block">
+                                                <span style="width: 10px; height: 30px; display: inline-block; line-height:30px; vertical-align: middle"
                                                       class="text-center">0</span>
-                                                <img src="<%= dish.icon %>" class="img-responsive img-rounded"
-                                                     style="width: 25px; height: 25px; display: inline-block">
+                                                <img src="/images/increase.png" class="img-responsive img-rounded"
+                                                     style="width: 30px; height: 30px; display: inline-block">
                                             </div>
                                         </div>
                                     </li>
                                     <% }); %>
                                 </ul>
                                 <% } %>
+                            </ul>
                         </div>
                     </div>
 
@@ -128,8 +128,6 @@
 <script src="/javascripts/layer/layer.js"></script>
 <script>
     $(document).ready(function () {
-
-
         $('#commitBtn').click(function () {
             var orders = [
                 {dishes_id: 1, dishes_count: 2},

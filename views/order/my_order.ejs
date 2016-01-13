@@ -32,10 +32,10 @@
                     <div class="h1 text-center">乐餐吧</div>
                 </div>
                 <div class="text-center" style="padding-top: 40px; padding-bottom: 40px">
-                    <div class="h4">
-                        <span>总价：</span><span id="totalPrice"></span><span>元</span>
+                    <div id="title" class="h4">
+                        正在获取您的订单信息...
                     </div>
-                    <div id="dishes" style="font-size: 14px; color: #c72323">
+                    <div id="summary" style="font-size: 14px; color: #c72323">
 
                     </div>
 
@@ -54,10 +54,6 @@
 <script src="/javascripts/layer/layer.js"></script>
 <script>
     $(document).ready(function () {
-        $('#okBtn').click(function () {
-            history.go(-1);
-        });
-
         $.ajax({
             url: '/mine/order/info',      //请求的url地址，这是相对于现在的位置的地址
             dataType: 'json',             //返回格式为json
@@ -78,10 +74,14 @@
                         response.dishes.forEach(function (item) {
                             totalPrice += (item.price * item.count);
 
-                            $('#dishes').append("<div style='font-size: 14px; color: #c72323; margin-top: 5px; margin-bottom: 5px'>" + item.count + "个" + item.name + "</div>");
+                            $('#summary').append("<div style='font-size: 14px; color: #c72323; margin-top: 5px; margin-bottom: 5px'>" + item.count + "个" + item.name + "</div>");
                         });
 
-                        $('#totalPrice').html(totalPrice);
+                        $('#title').html('总价：' + totalPrice + '元');
+                        $('#okBtn').html('确定');
+                        $('#okBtn').click(function () {
+                            history.go(-1);
+                        });
 
                         return;
                     }
@@ -91,17 +91,17 @@
                     }
                 }
 
-                layer.alert(errMsg, {
-                    skin: 'layui-layer-molv',  //样式类名
-                    closeBtn: 0,
-                    shift: 2 //动画类型
+                $('#title').html(errMsg);
+                $('#okBtn').html('重试');
+                $('#okBtn').click(function () {
+                    location.reload();
                 });
             },
             error: function () {          //请求出错处理
-                layer.alert('请求失败，请重试！', {
-                    skin: 'layui-layer-molv',  //样式类名
-                    closeBtn: 0,
-                    shift: 2 //动画类型
+                $('#title').html('请求失败，请重试！');
+                $('#okBtn').html('重试');
+                $('#okBtn').click(function () {
+                    location.reload();
                 });
             },
             complete: function () {       //请求完成的处理
