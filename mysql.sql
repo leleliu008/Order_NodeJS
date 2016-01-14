@@ -85,4 +85,21 @@ INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http:
 INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '红烧肉骨饭', 16.0, '盖饭类', 1);
 INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '红烧牛肉饭', 17.0, '盖饭类', 1);
 INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '台式卤肉饭', 18.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '泡菜五花肉盖饭', 18.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '川香鱼柳盖饭', 18.0, '盖饭类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '咖喱鸡肉饭', 20.0, '盖饭类', 1);
 
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '台式卤蛋', 3.0, '小吃类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '蔬菜浓汤', 6.0, '小吃类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '牛奶南瓜汤', 10.0, '小吃类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '菜肉大馄饨', 12.0, '小吃类', 1);
+
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '热豆浆', 3.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '矿泉水', 3.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '百事可乐', 5.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '美年达', 5.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '七喜', 5.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '燕京鲜啤', 9.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '燕京纯生', 12.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '大西洋芭乐汁', 12.0, '饮料类', 1);
+INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '黑松沙士', 12.0, '饮料类', 1);
