@@ -50,9 +50,9 @@
                 <hr style="margin: 0px">
 
                 <% if (dishes) { %>
-                    <div style="position: relative; max-height: 400px">
+                    <div style="position: relative">
                         <div class="clearfix">
-                            <ul class="list-group" style="width: 70px; height: 100%; float: left">
+                            <ul class="list-group" style="width: 70px; float: left; max-height: 300px; overflow-y: auto; margin-bottom: 0px">
                                 <% var classfies = restaurant.classifies.split('|'); %>
                                 <% for (var i = 0; i < classfies.length; i++ ) { %>
                                 <% var classfy = classfies[i] %>
@@ -66,7 +66,7 @@
                             <div style="margin-left: 70px">
                                 <% var classfies = restaurant.classifies.split('|'); %>
                                 <% for (var i = 0; i < classfies.length; i++) { %>
-                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 400px; overflow-y: auto">
+                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 300px; overflow-y: auto; margin-bottom: 0px; border-left: 1px solid gainsboro">
                                     <% for (var j = 0; j < dishes[i].length; j++) { %>
                                         <% var dish = dishes[i][j] %>
                                         <li class="list-group-item" style="border-radius: 0px; border-left: 0px; border-right: 0px">
@@ -95,14 +95,13 @@
                                 <% } %>
                             </div>
                         </div>
-
-                        <div style="background-color:orangered; width:100%; position:absolute; left: 0px; bottom: -40px; padding: 10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px">
-                            <span>总价：</span><span id="totalPrice" style="font-size: 28px">0</span><span>元</span>
-                            <span class="pull-right" style="display: block">
-                                <span style="font-size: 10px">不要超过28元哟！</span>
-                                <a class="btn btn-success" id="commitBtn">选好了</a>
-                            </span>
-                        </div>
+                    </div>
+                    <div style="background-color:gainsboro; width:100%; padding: 10px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px">
+                        <span>总价：</span><span id="totalPrice" style="font-size: 28px">0</span><span>元</span>
+                        <span class="pull-right" style="display: block">
+                            <span style="font-size: 10px">不要超过28元哟！</span>
+                            <a class="btn btn-success" id="commitBtn">选好了</a>
+                        </span>
                     </div>
                 <% } %>
             </div>
