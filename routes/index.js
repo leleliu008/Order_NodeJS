@@ -462,7 +462,7 @@ router.post('/mine/change-password', function (request, response, next) {
 /*  后台. */
 router.get('/admin/dishes', function (request, response, next) {
     var today = getDayFormat();
-    var sql =  "SELECT t_user.name AS userName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
+    var sql =  "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
         sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
     //查询菜单表
     mysqlClinet.exec(sql, [today], function (err, rows, fields) {
