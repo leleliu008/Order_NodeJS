@@ -66,12 +66,7 @@
                             <div style="margin-left: 70px">
                                 <% var classfies = restaurant.classifies.split('|'); %>
                                 <% for (var i = 0; i < classfies.length; i++) { %>
-                                    <% if (i == 0) { %>
-                                        <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 500px; overflow: scroll">
-                                    <% } else { %>
-                                        <ul class="list-group hidden" id="dishes_list<%= i %>">
-                                    <% } %>
-
+                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 500px; overflow-y: auto">
                                     <% for (var j = 0; j < dishes[i].length; j++) { %>
                                         <% var dish = dishes[i][j] %>
                                         <li class="list-group-item" style="border-radius: 0px; border-left: 0px; border-right: 0px">
@@ -135,9 +130,22 @@
         var classfies = restaurant.classifies.split('|');
         for (var i = 0; i < classfies.length; i++) {
             (function(i) {
+                if (i == 0) {
+                    $('#classfy' + i).css('background-color', 'green');
+                }
+
+                if (i > 0) {
+                    $('#dishes_list' + i).hide();
+                }
+
                 //注册分类的点击事件
                 $('#classfy' + i).click(function() {
+                    lastSelectedClassfyIndex = currentSelectedClassfyIndex;
                     currentSelectedClassfyIndex = i;
+
+                    $('#classfy' + lastSelectedClassfyIndex).css('background-color', 'transparent');
+                    $('#classfy' + currentSelectedClassfyIndex).css('background-color', 'green');
+
                     $('#dishes_list' + lastSelectedClassfyIndex).hide();
                     $('#dishes_list' + currentSelectedClassfyIndex).show();
                 });
