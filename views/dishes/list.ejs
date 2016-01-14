@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <title>晚上加班点餐系统———美食列表</title>
+    <title>乐餐吧———美食列表</title>
 
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
@@ -50,7 +50,7 @@
                 <hr style="margin: 0px">
 
                 <% if (dishes) { %>
-                    <div style="position: relative; max-height: 500px">
+                    <div style="position: relative; max-height: 400px">
                         <div class="clearfix">
                             <ul class="list-group" style="width: 70px; height: 100%; float: left">
                                 <% var classfies = restaurant.classifies.split('|'); %>
@@ -66,7 +66,7 @@
                             <div style="margin-left: 70px">
                                 <% var classfies = restaurant.classifies.split('|'); %>
                                 <% for (var i = 0; i < classfies.length; i++) { %>
-                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 500px; overflow-y: auto">
+                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 400px; overflow-y: auto">
                                     <% for (var j = 0; j < dishes[i].length; j++) { %>
                                         <% var dish = dishes[i][j] %>
                                         <li class="list-group-item" style="border-radius: 0px; border-left: 0px; border-right: 0px">

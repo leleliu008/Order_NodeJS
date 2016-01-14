@@ -375,13 +375,83 @@ function queryDishes(orders, i, array, response) {
 }
 
 /* 关于. */
-router.get('/about', function (req, res, next) {
-    res.render('about', {});
+router.get('/about', function (request, response, next) {
+    response.render('about', {});
+});
+
+router.get('/reset-password', function (request, response, next) {
+    response.render('change-password', {});
+});
+
+router.get('/mine/change-password', function (request, response, next) {
+    response.render('change-password', {});
 });
 
 /* 修改密码. */
-router.get('/mine/change-password', function (req, res, next) {
-    res.render('change-password', {});
+router.post('/mine/change-password', function (request, response, next) {
+    var userId = getcookieValue(request, 'userId');
+    if (userId) {
+        var formData = request.body;
+        console.log("formData = " + formData);
+        console.log("oldPassword = " + formData.oldPassword);
+        console.log("newPassword = " + formData.newPassword);
+
+        var oldPassword_md5 = sha('md5', formData.oldPassword);
+        console.log("oldPassword_md5 = " + oldPassword_md5);
+
+        mysqlClinet.exec('SELECT id, password FROM t_user WHERE id=? AND password=?', [userId, oldPassword_md5], function (err, rows, fieds) {
+            if (err) {
+                console.log(err.stack);
+
+                var error = {
+                    code: 3,
+                    message: '服务端异常'
+                };
+
+                response.send(error);
+            } else {
+                console.log('SELECT id, password FROM t_user WHERE id=? AND password=? success');
+
+                if (rows.length == 0) {
+                    var error = {
+                        code: 2,
+                        message: '您的旧密码错误'
+                    };
+
+                    response.send(error);
+                } else {
+                    var newPassword_md5 = sha('md5', formData.newPassword);
+                    mysqlClinet.exec('UPDATE t_user SET password = ? WHERE id=? AND password=?', [newPassword_md5, userId, oldPassword_md5], function (err, rows, fieds) {
+                        if (err) {
+                            console.log(err.stack);
+
+                            var error = {
+                                code: 3,
+                                message: '服务端异常'
+                            };
+
+                            response.send(error);
+                        } else {
+                            console.log('UPDATE t_user SET password = ? WHERE id=? AND password=? success');
+
+                            var success = {
+                                code: 0,
+                                message: '密码修改成功'
+                            };
+
+                            response.send(success);
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        var error = {
+            code: 4,
+            message: '请重新登陆'
+        };
+        response.send(error);
+    }
 });
 
 /*  后台. */
