@@ -379,6 +379,11 @@ router.get('/about', function (request, response, next) {
     response.render('about', {});
 });
 
+/* 关于. */
+router.get('/about2', function (request, response, next) {
+    response.render('about2', {});
+});
+
 router.get('/reset-password', function (request, response, next) {
     response.render('change-password', {});
 });
@@ -455,8 +460,22 @@ router.post('/mine/change-password', function (request, response, next) {
 });
 
 /*  后台. */
-router.get('/admin', function (req, res, next) {
-    res.render('admin', {});
+router.get('/admin/dishes', function (request, response, next) {
+    var today = getDayFormat();
+    var sql =  "SELECT t_user.name AS userName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
+        sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
+    //查询菜单表
+    mysqlClinet.exec(sql, [today], function (err, rows, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+            if (!rows) {
+                rows = [];
+            }
+            response.render('admin/dishes_list', {orders: rows});
+        }
+    });
 });
 
 function handleError(err, response) {
