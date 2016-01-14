@@ -52,7 +52,7 @@
                 <% if (dishes) { %>
                     <div style="position: relative">
                         <div class="clearfix">
-                            <ul class="list-group" style="width: 70px; float: left; max-height: 300px; overflow-y: auto; margin-bottom: 0px">
+                            <ul class="list-group" style="width: 70px; float: left; max-height: 390px; overflow-y: auto; margin-bottom: 0px">
                                 <% var classfies = restaurant.classifies.split('|'); %>
                                 <% for (var i = 0; i < classfies.length; i++ ) { %>
                                 <% var classfy = classfies[i] %>
@@ -63,10 +63,10 @@
                                 <% } %>
                             </ul>
 
-                            <div style="margin-left: 70px">
+                            <div>
                                 <% var classfies = restaurant.classifies.split('|'); %>
                                 <% for (var i = 0; i < classfies.length; i++) { %>
-                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 300px; overflow-y: auto; margin-bottom: 0px; border-left: 1px solid gainsboro">
+                                   <ul class="list-group" id="dishes_list<%= i %>" style="max-height: 390px; overflow-y: auto; margin-bottom: 0px; border-left: 1px solid gainsboro">
                                     <% for (var j = 0; j < dishes[i].length; j++) { %>
                                         <% var dish = dishes[i][j] %>
                                         <li class="list-group-item" style="border-radius: 0px; border-left: 0px; border-right: 0px">
