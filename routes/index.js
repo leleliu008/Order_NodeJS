@@ -385,7 +385,7 @@ router.get('/about2', function (request, response, next) {
 });
 
 router.get('/reset-password', function (request, response, next) {
-    response.render('change-password', {});
+    response.render('reset-password', {});
 });
 
 router.get('/mine/change-password', function (request, response, next) {
@@ -459,11 +459,149 @@ router.post('/mine/change-password', function (request, response, next) {
     }
 });
 
+var config = require('../config.js');
+var http = require('http');
+var tbSignUtil = require('./taobaoSignUtil.js');
+
+var verifyCodeMap = new Map();
+
+/**
+ * 获取短信验证码
+ */
+router.get('/verifyCode', function (request, response, next) {
+    var phoneNumber = request.query.phoneNumber;
+    console.log('phoneNumber = ' + phoneNumber);
+
+    if (!phoneNumber) {
+        var result = {
+            code: 1,
+            message: '缺少phoneNumber参数'
+        };
+
+        response.send(result);
+        return;
+    }
+
+    var verifyCode = "1234";
+    var params = {code: verifyCode, product: config.alidayu.product};
+
+    // 短信发送的参数对象
+    var obj = {
+        format: 'json',
+        method: 'alibaba.aliqin.fc.sms.num.send',
+        partner_id: config.alidayu.partner_id,
+        rec_num: phoneNumber,
+        sign_method: 'hmac',
+        sms_type: 'normal',
+        sms_param: JSON.stringify(params),
+        sms_free_sign_name: config.alidayu.sms_free_sign_name,
+        sms_template_code: config.alidayu.sms_template_code,
+        v: '2.0'
+    };
+
+    var result = tbSignUtil.sign(obj);
+
+    obj.sign = result.sign;
+    obj.timestamp = result.timestamp;
+
+    console.log(obj);
+
+    var requestEntity = xx(obj);
+
+    var options = {
+        host: 'gw.api.taobao.com',
+        path: '/router/rest',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+            'Content-Length': requestEntity.length
+        }
+    };
+
+    var req = http.request(options, function (res) {
+        console.log('STATUS: ' + res.statusCode);
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('BODY: ' + chunk);
+            chunk = JSON.parse(chunk);
+
+            if (chunk.alibaba_aliqin_fc_sms_num_send_response
+                && chunk.alibaba_aliqin_fc_sms_num_send_response.result
+                && chunk.alibaba_aliqin_fc_sms_num_send_response.result.err_code == '0'
+                && chunk.alibaba_aliqin_fc_sms_num_send_response.result.success) {
+
+                verifyCodeMap.put(phoneNumber, verifyCode);
+
+                var result = {
+                    code: 0,
+                    message: '成功'
+                };
+
+                response.send(result);
+            } else {
+                var result = {};
+                result.code = chunk.error_response.code;
+                result.message = chunk.error_response.sub_msg;
+            }
+        });
+        res.on('error', function (err) {
+            console.log('RESPONSE ERROR: ' + err);
+
+            var result = {
+                code: 1,
+                message: '失败'
+            };
+
+            response.send(result);
+        });
+    });
+
+    req.on('error', function (err) {
+        console.log('REQUEST ERROR: ' + err);
+
+        var result = {
+            code: 1,
+            message: '失败'
+        };
+
+        response.send(result);
+    });
+    req.write(requestEntity);
+    req.end();
+});
+
+router.post('/verifyCode', function (request, response, next) {
+    var requestEntity = request.body;
+    if (requestEntity) {
+        var phoneNumber = requestEntity.phoneNumber;
+        var verifyCode = requestEntity.verifyCode;
+
+        console.log('phoneNumber = ' + phoneNumber);
+        console.log('verifyCode = ' + verifyCode);
+
+        if (phoneNumber && verifyCode && verifyCodeMap.get(phoneNumber) == verifyCode) {
+            var result = {
+                code: 0,
+                message: '成功'
+            };
+            response.send(result);
+            return;
+        }
+    }
+
+    var result = {
+        code: 1,
+        message: '失败'
+    };
+
+    response.send(result);
+});
+
 /*  后台. */
 router.get('/admin/dishes', function (request, response, next) {
     var today = getDayFormat();
-    var sql =  "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
-        sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
+    var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
+    sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
     //查询菜单表
     mysqlClinet.exec(sql, [today], function (err, rows, fields) {
         if (err) {
@@ -477,6 +615,7 @@ router.get('/admin/dishes', function (request, response, next) {
         }
     });
 });
+
 
 function handleError(err, response) {
     console.log(err.stack);
@@ -501,6 +640,27 @@ function getDayFormat() {
     }
     str += day;
     return str;
+}
+
+function xx(obj) {
+    // 参数数组
+    var arr = [];
+    // 循环添加参数项
+    for (var p in obj) {
+        arr.push(p + "=" + urlEncode(obj[p]));
+    }
+    // 排序
+    arr.sort();
+    // 参数串
+    var msg = arr.join('&');
+    console.log(msg);
+    return msg;
+}
+
+function urlEncode(str) {
+    str = (str + '').toString();
+
+    return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
 }
 
 module.exports = router;

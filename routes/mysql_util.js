@@ -3,6 +3,8 @@
  *
  * @author 792793182@qq.com 2016-01-03.
  */
+
+var config = require('../config.js');
 var mysql = require('mysql');
 
 function MySQLClient() {
@@ -10,13 +12,7 @@ function MySQLClient() {
     var connection;
 
     MySQLClient.prototype.connect = function(callback) {
-        connection = mysql.createConnection({
-            host:'localhost',
-            port:3306,
-            user:'root',
-            password:'root',
-            database:'db_order_dishes'
-        });
+        connection = mysql.createConnection(config.db);
         connection.connect(callback);
     };
 
