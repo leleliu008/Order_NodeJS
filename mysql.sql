@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS t_order (
 	dishes_id int NOT NULL,
 	dishes_count int NOT NULL);
 
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'test', 'e10adc3949ba59abbe56e057f20f883e', '测试', '15656059397');
+INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'test', 'e10adc3949ba59abbe56e057f20f883e', '测试', '12345678910');
 INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'wangyunbing', 'e10adc3949ba59abbe56e057f20f883e', '王允兵', '18210430377');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'fengxiankun', 'e10adc3949ba59abbe56e057f20f883e', '冯贤坤', '15656059397');
+INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'fengxiankun', 'e10adc3949ba59abbe56e057f20f883e', '冯贤坤', '');
 INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'fengjie', 'e10adc3949ba59abbe56e057f20f883e', '冯杰', '18810618113');
 INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhangyunyang', 'e10adc3949ba59abbe56e057f20f883e', '张韵杨', '17701321277');
 INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'kangguolong', 'e10adc3949ba59abbe56e057f20f883e', '康国龙', '18518570130');

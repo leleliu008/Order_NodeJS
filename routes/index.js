@@ -542,6 +542,7 @@ router.get('/verifyCode', function (request, response, next) {
                 var result = {};
                 result.code = chunk.error_response.code;
                 result.message = chunk.error_response.sub_msg;
+                response.send(result);
             }
         });
         res.on('error', function (err) {
@@ -580,11 +581,48 @@ router.post('/verifyCode', function (request, response, next) {
         console.log('verifyCode = ' + verifyCode);
 
         if (phoneNumber && verifyCode && verifyCodeMap.get(phoneNumber) == verifyCode) {
-            var result = {
-                code: 0,
-                message: '成功'
-            };
-            response.send(result);
+            var password = sha('md5', '123456');
+            mysqlClinet.exec("UPDATE t_user SET password = ? WHERE phoneNumber = ?", [password, phoneNumber], function (err, rows, fieds) {
+                if (err) {
+                    console.log(err.stack);
+
+                    var result = {
+                        code: 1,
+                        message: '失败'
+                    };
+
+                    response.send(result);
+                    return;
+                } else {
+                    console.log('UPDATE t_user SET password = ? WHERE phoneNumber = ? success');
+
+                    console.log(rows);
+
+                    var changedRows = rows.changedRows;
+                    if (changedRows == 0) {
+                        if (rows.affectedRows) {
+                            var result = {
+                                code: 5,
+                                message: '您的手机号与别人相同了，请联系管理员'
+                            };
+                            response.send(result);
+                            return;
+                        } else {
+                            var result = {
+                                code: 0,
+                                message: '重置密码成功'
+                            };
+                            return;
+                        }
+                    } else {
+                        var result = {
+                            code: 0,
+                            message: '重置密码成功'
+                        };
+                        return;
+                    }
+                }
+            });
             return;
         }
     }
