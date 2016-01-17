@@ -54,44 +54,6 @@ CREATE TABLE IF NOT EXISTS t_order (
 	dishes_count int NOT NULL);
 
 INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'test', 'e10adc3949ba59abbe56e057f20f883e', '测试', '12345678910');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'wangyunbing', 'e10adc3949ba59abbe56e057f20f883e', '王允兵', '18210430377');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'fengxiankun', 'e10adc3949ba59abbe56e057f20f883e', '冯贤坤', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'fengjie', 'e10adc3949ba59abbe56e057f20f883e', '冯杰', '18810618113');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhangyunyang', 'e10adc3949ba59abbe56e057f20f883e', '张韵杨', '17701321277');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'kangguolong', 'e10adc3949ba59abbe56e057f20f883e', '康国龙', '18518570130');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'songyu', 'e10adc3949ba59abbe56e057f20f883e', '宋宇', '18609814006');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'xuxiaoai', 'e10adc3949ba59abbe56e057f20f883e', '徐小爱', '18701121779');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhoujianwei', 'e10adc3949ba59abbe56e057f20f883e', '周建伟', '13910987983');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'chengxiaonan', 'e10adc3949ba59abbe56e057f20f883e', '程晓男', '15510785675');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'liufupin', 'e10adc3949ba59abbe56e057f20f883e', '刘富频', '15656059397');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'gebaocai', 'e10adc3949ba59abbe56e057f20f883e', '葛宝才', '17090073253');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'wangjianye', 'e10adc3949ba59abbe56e057f20f883e', '王建业', '17710153021');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'sishuhang', 'e10adc3949ba59abbe56e057f20f883e', '司树行', '18034164898');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'yangchaoming', 'e10adc3949ba59abbe56e057f20f883e', '杨朝明', '18911788209');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'gujunyu', 'e10adc3949ba59abbe56e057f20f883e', '古军宇', '13811326144');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'sunhailong', 'e10adc3949ba59abbe56e057f20f883e', '孙海龙', '15801301868');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'songjunjie', 'e10adc3949ba59abbe56e057f20f883e', '宋俊杰', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'chaoxiaoxue', 'e10adc3949ba59abbe56e057f20f883e', '常小雪', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhounengfa', 'e10adc3949ba59abbe56e057f20f883e', '周能发', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'wangxiaowei', 'e10adc3949ba59abbe56e057f20f883e', '王晓伟', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'yufangfang', 'e10adc3949ba59abbe56e057f20f883e', '余芳芳', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'heweiwei', 'e10adc3949ba59abbe56e057f20f883e', '贺伟伟', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'lvfang', 'e10adc3949ba59abbe56e057f20f883e', '吕方', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'kangguoying', 'e10adc3949ba59abbe56e057f20f883e', '康国英', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'liuweixin', 'e10adc3949ba59abbe56e057f20f883e', '刘伟新', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'madong', 'e10adc3949ba59abbe56e057f20f883e', '马东', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'yangchao', 'e10adc3949ba59abbe56e057f20f883e', '杨超', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'liufei', 'e10adc3949ba59abbe56e057f20f883e', '刘飞', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'dongkelin', 'e10adc3949ba59abbe56e057f20f883e', '董科霖', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'gaoyunfeng', 'e10adc3949ba59abbe56e057f20f883e', '高云峰', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'limenglei', 'e10adc3949ba59abbe56e057f20f883e', '李梦磊', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'linhao', 'e10adc3949ba59abbe56e057f20f883e', '林浩', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'liujia', 'e10adc3949ba59abbe56e057f20f883e', '刘佳', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'xunan', 'e10adc3949ba59abbe56e057f20f883e', '许楠', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhangbin', 'e10adc3949ba59abbe56e057f20f883e', '张彬', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhangheyuan', 'e10adc3949ba59abbe56e057f20f883e', '张赫原', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhaozhengqiang', 'e10adc3949ba59abbe56e057f20f883e', '赵政强', '');
-INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'zhoudan', 'e10adc3949ba59abbe56e057f20f883e', '周丹', '');
 
 
 INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('http://1684.dv37.com/upload/agent/201108/dc4b835a07a00f4ceaaa399adf7707ee.jpg', '半亩园', '15656059397', '面条类|砂锅类|烧饼类|小菜类|盖饭类|小吃类|饮料类');
