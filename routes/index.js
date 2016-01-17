@@ -581,8 +581,7 @@ router.post('/verifyCode', function (request, response, next) {
         console.log('verifyCode = ' + verifyCode);
 
         if (phoneNumber && verifyCode && verifyCodeMap.get(phoneNumber) == verifyCode) {
-            var password = sha('md5', '123456');
-            mysqlClinet.exec("UPDATE t_user SET password = ? WHERE phoneNumber = ?", [password, phoneNumber], function (err, rows, fieds) {
+            mysqlClinet.exec("SELECT id FROM t_user WHERE phoneNumber = ?", [phoneNumber], function (err, rows, fieds) {
                 if (err) {
                     console.log(err.stack);
 
@@ -594,33 +593,48 @@ router.post('/verifyCode', function (request, response, next) {
                     response.send(result);
                     return;
                 } else {
-                    console.log('UPDATE t_user SET password = ? WHERE phoneNumber = ? success');
+                    console.log('SELECT id FROM t_user WHERE phoneNumber = ? success');
 
-                    console.log(rows);
+                    if (!rows || rows.length == 0) {
+                        var result = {
+                            code: 1,
+                            message: '您输入的手机号与您的注册信息不符合，请联系管理员'
+                        };
 
-                    var changedRows = rows.changedRows;
-                    if (changedRows == 0) {
-                        if (rows.affectedRows) {
-                            var result = {
-                                code: 5,
-                                message: '您的手机号与别人相同了，请联系管理员'
-                            };
-                            response.send(result);
+                        response.send(result);
+                    } else if (rows.length == 1) {
+                        var password = sha('md5', '123456');
+                        mysqlClinet.exec("UPDATE t_user SET password = ? WHERE phoneNumber = ?", [password, phoneNumber], function (err, rows, fieds) {
+                            if (err) {
+                                console.log(err.stack);
+
+                                var result = {
+                                    code: 1,
+                                    message: '失败'
+                                };
+
+                                response.send(result);
+                            } else {
+                                console.log('UPDATE t_user SET password = ? WHERE phoneNumber = ? success');
+
+                                var result = {
+                                    code: 0,
+                                    message: '重置密码成功'
+                                };
+                                response.send(result);
+                            }
                             return;
-                        } else {
-                            var result = {
-                                code: 0,
-                                message: '重置密码成功'
-                            };
-                            return;
-                        }
+                        });
                     } else {
                         var result = {
-                            code: 0,
-                            message: '重置密码成功'
+                            code: 1,
+                            message: '您输入的手机号与别人有相同，请更换手机号或者联系管理员'
                         };
-                        return;
+
+                        response.send(result);
                     }
+
+                    return;
                 }
             });
             return;
