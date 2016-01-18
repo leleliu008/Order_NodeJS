@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="/mine/order">
+                        <a href="/order/mine">
                             <div class="common_item" style="display: block">
                                 <img src="/images/ic_weixin_normal.png" class="img-circle common_item_left"
                                      style="width: 30px; height: 30px"/>
@@ -73,7 +73,7 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="/admin/dishes">
+                        <a href="/order/all">
                             <div class="common_item" style="display: block">
                                 <img src="/images/ic_weixin_normal.png" class="img-circle common_item_left"
                                      style="width: 30px; height: 30px"/>
@@ -117,7 +117,7 @@
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: '/mine/info',              //请求的url地址，这是相对于现在的位置的地址
+            url: '/mine/api',               //请求的url地址，这是相对于现在的位置的地址
             dataType: 'json',               //返回格式为json
             async: true,                    //请求是否异步，默认为异步，这也是ajax重要特性
             data: {},                       //参数值

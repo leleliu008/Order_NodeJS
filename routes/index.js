@@ -238,62 +238,37 @@ function insert_order(today, userId, orders, i, response) {
     });
 }
 
+/* 获取我的订单界面 */
+router.get('/order/mine', function (request, response, next) {
+    response.render('order/mine', {});
+});
+
+/* 获取所有订单界面 */
+router.get('/order/all', function (request, response, next) {
+    var today = getDayFormat();
+    var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
+    sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
+    //查询菜单表
+    mysqlClinet.exec(sql, [today], function (err, rows, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+            if (!rows) {
+                rows = [];
+            }
+            response.render('order/all', {orders: rows});
+        }
+    });
+});
+
 /* 获取提交订单成功界面 */
 router.get('/order/success', function (request, response, next) {
     response.render('order/success', {totalPrice: 28});
 });
 
-/* 获取我的信息界面 */
-router.get('/mine', function (request, response, next) {
-    response.render('mine', {totalPrice: 28});
-});
-
-/* 获取我的信息的API */
-router.get('/mine/info', function (request, response, next) {
-    var userId = getcookieValue(request, 'userId');
-    if (userId) {
-        mysqlClinet.exec('SELECT * FROM t_user WHERE id = ?', [userId], function (err, rows, fieds) {
-            if (err) {
-                console.log(err.stack);
-
-                var error = {
-                    code: 1,
-                    message: '服务器异常'
-                };
-                response.send(error);
-            } else {
-                console.log('mysqlClinet.exec() success');
-
-                var data;
-                if (rows && rows.length > 0) {
-                    data = rows[0];
-                } else {
-                    data = {};
-                }
-                var success = {
-                    code: 0,
-                    message: '成功',
-                    data: data
-                };
-                response.send(success);
-            }
-        });
-    } else {
-        var error = {
-            code: 4,
-            message: '请重新登陆'
-        };
-        response.send(error);
-    }
-});
-
-/* 获取我的订单界面 */
-router.get('/mine/order', function (request, response, next) {
-    response.render('order/my_order', {});
-});
-
 /* 获取我的订单API */
-router.get('/mine/order/info', function (request, response, next) {
+router.get('/order/mine/api', function (request, response, next) {
     var userId = getcookieValue(request, 'userId');
     if (userId) {
         var today = getDayFormat();
@@ -373,6 +348,51 @@ function queryDishes(orders, i, array, response) {
         }
     });
 }
+
+
+/* 获取我的信息界面 */
+router.get('/mine', function (request, response, next) {
+    response.render('mine', {totalPrice: 28});
+});
+
+/* 获取我的信息的API */
+router.get('/mine/api', function (request, response, next) {
+    var userId = getcookieValue(request, 'userId');
+    if (userId) {
+        mysqlClinet.exec('SELECT * FROM t_user WHERE id = ?', [userId], function (err, rows, fieds) {
+            if (err) {
+                console.log(err.stack);
+
+                var error = {
+                    code: 1,
+                    message: '服务器异常'
+                };
+                response.send(error);
+            } else {
+                console.log('mysqlClinet.exec() success');
+
+                var data;
+                if (rows && rows.length > 0) {
+                    data = rows[0];
+                } else {
+                    data = {};
+                }
+                var success = {
+                    code: 0,
+                    message: '成功',
+                    data: data
+                };
+                response.send(success);
+            }
+        });
+    } else {
+        var error = {
+            code: 4,
+            message: '请重新登陆'
+        };
+        response.send(error);
+    }
+});
 
 /* 关于. */
 router.get('/about', function (request, response, next) {
@@ -650,7 +670,46 @@ router.post('/verifyCode', function (request, response, next) {
 });
 
 /*  后台. */
-router.get('/admin/dishes', function (request, response, next) {
+router.get('/admin', function (request, response, next) {
+    response.render('admin/admin', {});
+});
+
+/*  后台 - 用户管理 */
+router.get('/admin/user', function (request, response, next) {
+    var sql = "SELECT id, name, realName, phoneNumber FROM t_user";
+    //查询菜单表
+    mysqlClinet.exec(sql, null, function (err, users, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+            if (!users) {
+                rows = [];
+            }
+            response.render('admin/user', {users: users});
+        }
+    });
+});
+
+/*  后台 - 餐馆管理 */
+router.get('/admin/restaurant', function (request, response, next) {
+    var sql = "SELECT id, name, phoneNumber FROM t_restaurant";
+    //查询菜单表
+    mysqlClinet.exec(sql, null, function (err, restaurants, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+            if (!restaurants) {
+                restaurants = [];
+            }
+            response.render('admin/restaurant', {restaurants: restaurants});
+        }
+    });
+});
+
+/*  后台 - 菜单管理 */
+router.get('/admin/dishes/:restaurantId', function (request, response, next) {
     var today = getDayFormat();
     var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
     sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
@@ -663,7 +722,26 @@ router.get('/admin/dishes', function (request, response, next) {
             if (!rows) {
                 rows = [];
             }
-            response.render('admin/dishes_list', {orders: rows});
+            response.render('admin/order', {orders: rows});
+        }
+    });
+});
+
+/*  后台 - 订单管理 */
+router.get('/admin/order', function (request, response, next) {
+    var today = getDayFormat();
+    var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
+    sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
+    //查询菜单表
+    mysqlClinet.exec(sql, [today], function (err, rows, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+            if (!rows) {
+                rows = [];
+            }
+            response.render('admin/order', {orders: rows});
         }
     });
 });
