@@ -29,50 +29,52 @@
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     <div class="h1" style="display: inline-block">用户管理</div>
-                    </a>
                 </div>
 
                 <% if (users && users.length > 0) { %>
-                    <div style="padding: 10px; border-bottom: 1px solid gainsboro">
-                        用户列表：
-                    </div>
-                    <table class="table table-responsive table-striped table-hover table-bordered">
-                        <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>真实姓名</th>
-                            <th>手机号码</th>
-                        </tr>
-                        </thead>
-                        <% for (var i = 0; i < users.length; i++) { %>
-                            <% var item = users[i] %>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <%= i %>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="admin/user/show/<%= item.id %>">详情</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="admin/user/edit/<%= item.id %>">编辑</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li id="delete_<%= item.id %>" style="padding-left: 20px">删除</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td><%= item.realName %></td>
-                                <td><%= item.phoneNumber %></td>
-                            </tr>
-                            </tbody>
-                        <% } %>
-                    </table>
+                <div style="padding: 10px; border-bottom: 1px solid gainsboro">
+                    用户列表：
+                </div>
+                <div style="max-height: 400px; overflow-y: scroll">
+                <table class="table table-responsive table-striped table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>真实姓名</th>
+                        <th>手机号码</th>
+                    </tr>
+                    </thead>
+                    <% for (var i = 0; i < users.length; i++) { %>
+                    <% var item = users[i] %>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <%= i %>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="admin/user/show/<%= item.id %>">详情</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="admin/user/edit/<%= item.id %>">编辑</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li id="delete_<%= item.id %>" style="padding-left: 20px">删除</li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td><%= item.realName %></td>
+                        <td><%= item.phoneNumber %></td>
+                    </tr>
+                    </tbody>
+                    <% } %>
+                </table>
+                </div>
                 <% } else { %>
-                    <div class="h2 text-center" style="height: 300px; padding-top: 130px">
-                        无用户
-                    </div>
+                <div class="h2 text-center" style="height: 300px; padding-top: 130px">
+                    无用户
+                </div>
                 <% } %>
 
                 <div class="text-center" style="margin-top: 20px; margin-bottom: 20px">

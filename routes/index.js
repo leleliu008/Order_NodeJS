@@ -703,7 +703,7 @@ router.get('/admin/restaurant', function (request, response, next) {
             if (!restaurants) {
                 restaurants = [];
             }
-            response.render('admin/restaurant', {restaurants: restaurants});
+            response.render('admin/restaurant/manage', {restaurants: restaurants});
         }
     });
 });
@@ -723,6 +723,107 @@ router.get('/admin/dishes/:restaurantId', function (request, response, next) {
                 rows = [];
             }
             response.render('admin/order', {orders: rows});
+        }
+    });
+});
+
+/*  后台 - 删除指定ID的餐馆 */
+router.get('/admin/restaurant/delete/:restaurantId', function (request, response, next) {
+    var sql = "DELETE * FROM t_restaurant WHERE id = ?";
+    mysqlClinet.exec(sql, [request.params.restaurantId], function (err, result, fields) {
+        if (err) {
+            console.log(e.stack);
+
+            var result = {
+                code: 1,
+                message: '失败'
+            };
+
+            response.send(result);
+        } else {
+            console.log(sql + ' success');
+
+            var result = {
+                code: 0,
+                message: '操作成功'
+            };
+
+            response.send(result);
+        }
+    });
+});
+
+/*  后台 - 显示指定ID的餐馆 */
+router.get('/admin/restaurant/show/:restaurantId', function (request, response, next) {
+    var sql = "SELECT * FROM t_restaurant WHERE id = ?";
+    mysqlClinet.exec(sql, [request.params.restaurantId], function (err, rows, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+
+            if (!rows || rows.length == 0) {
+                var err = {};
+                err.stack = '没有给定id的餐馆';
+                err.message = '错误';
+                handleError(err, response);
+                return;
+            }
+
+            response.render('admin/restaurant/detail', {restaurant: rows[0]});
+        }
+    });
+});
+
+/*  后台 - 编辑指定ID的餐馆 */
+router.get('/admin/restaurant/edit/:restaurantId', function (request, response, next) {
+    var sql = "SELECT * FROM t_restaurant WHERE id = ?";
+    mysqlClinet.exec(sql, [request.params.restaurantId], function (err, rows, fields) {
+        if (err) {
+            handleError(err, response);
+        } else {
+            console.log(sql + ' success');
+
+            if (!rows || rows.length == 0) {
+                var err = {};
+                err.stack = '没有给定id的餐馆';
+                err.message = '错误';
+                handleError(err, response);
+                return;
+            }
+
+            response.render('admin/restaurant/edit', {restaurant: rows[0]});
+        }
+    });
+});
+
+/*  后台 - 删除全部餐馆  */
+router.get('/admin/restaurant/add', function (request, response, next) {
+    response.render('admin/restaurant/add', {});
+});
+
+/*  后台 - 删除全部餐馆  */
+router.get('/admin/restaurant/deleteAll', function (request, response, next) {
+    var sql = "DELETE FROM t_restaurant";
+    mysqlClinet.exec(sql, null, function (err, result, fields) {
+        if (err) {
+            console.log(e.stack);
+
+            var result = {
+                code: 1,
+                message: '失败'
+            };
+
+            response.send(result);
+        } else {
+            console.log(sql + ' success');
+
+            var result = {
+                code: 0,
+                message: '操作成功'
+            };
+
+            response.send(result);
         }
     });
 });

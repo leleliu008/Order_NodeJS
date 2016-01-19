@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>乐餐吧后台———餐馆详情</title>
+
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/browserChecker.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="/javascripts/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body style="font-size: 12px">
+
+<div class="container">
+    <div class="row" style="margin-top: 5px">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <div class="h1" style="display: inline-block">餐馆详情</div>
+                </div>
+
+                <% if (restaurant) { %>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <img src="<%= restaurant.icon %>" class="img-rounded"
+                             style="margin-top: 20px; margin-bottom: 20px; width: 200px; height: 200px">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                姓名：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" disabled="true" value="<%= restaurant.name %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                手机：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" disabled="true" value="<%= restaurant.phoneNumber %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                邮箱：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" disabled="true" value="<%= restaurant.email %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                城市：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" disabled="true" value="<%= restaurant.city %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                地址：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" disabled="true" value="<%= restaurant.address %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                星级：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" disabled="true" value="<%= restaurant.levelName %>">
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+    </div>
+</div>
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
