@@ -24,7 +24,7 @@ function homeHanlder(request, response, next) {
     if (userId) {
         mysqlClinet.exec('SELECT * FROM t_restaurant limit 0, 10', null, function (err, rows, fieds) {
             if (err) {
-                handleError(err, request);
+                common.handleError(err, request);
             } else {
                 console.log('SELECT * FROM t_restaurant limit 0, 10 success');
 
@@ -110,17 +110,17 @@ router.get('/dishes/list/:restaurantId', function (request, response, next) {
 
     mysqlClinet.exec('SELECT * FROM t_restaurant WHERE id=?', [restaurantId], function (err, restaurants, fields) {
         if (err) {
-            handleError(err, response)
+            common.handleError(err, response)
         } else {
             if (!restaurants || restaurants.length == 0) {
-                handleError(err, response);
+                common.handleError(err, response);
             } else {
                 mysqlClinet.exec('SELECT * FROM t_dishes WHERE restaurant_id=?', [restaurantId], function (err, dishes, fields) {
                     if (err) {
-                        handleError(err, response)
+                        common.handleError(err, response)
                     } else {
                         if (!dishes) {
-                            handleError(err, response);
+                            common.handleError(err, response);
                         } else {
                             var map = new Map();
 
@@ -162,7 +162,7 @@ router.get('/dishes/list/:restaurantId', function (request, response, next) {
 router.post('/order', function (request, response, next) {
     var userId = getcookieValue(request, 'userId');
     if (userId) {
-        var today = getDayFormat();
+        var today = common.getDayFormat();
         console.log('today = ' + today);
 
         mysqlClinet.exec('SELECT * FROM t_order WHERE user_id = ? AND selected_date = ?', [userId, today], function (err, rows, fieds) {
@@ -245,13 +245,13 @@ router.get('/order/mine', function (request, response, next) {
 
 /* 获取所有订单界面 */
 router.get('/order/all', function (request, response, next) {
-    var today = getDayFormat();
+    var today = common.getDayFormat();
     var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
     sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
     //查询菜单表
     mysqlClinet.exec(sql, [today], function (err, rows, fields) {
         if (err) {
-            handleError(err, response);
+            common.handleError(err, response);
         } else {
             console.log(sql + ' success');
             if (!rows) {
@@ -271,7 +271,7 @@ router.get('/order/success', function (request, response, next) {
 router.get('/order/mine/api', function (request, response, next) {
     var userId = getcookieValue(request, 'userId');
     if (userId) {
-        var today = getDayFormat();
+        var today = common.getDayFormat();
         console.log('today = ' + today);
 
         //查询订单表，看是否已经创建过今天的订单
@@ -479,6 +479,7 @@ router.post('/mine/change-password', function (request, response, next) {
     }
 });
 
+var common = require('./common.js');
 var config = require('../config.js');
 var http = require('http');
 var tbSignUtil = require('./taobaoSignUtil.js');
@@ -526,7 +527,7 @@ router.get('/verifyCode', function (request, response, next) {
 
     console.log(obj);
 
-    var requestEntity = xx(obj);
+    var requestEntity = common.getEncodedURL(obj);
 
     var options = {
         host: 'gw.api.taobao.com',
@@ -668,230 +669,5 @@ router.post('/verifyCode', function (request, response, next) {
 
     response.send(result);
 });
-
-/*  后台. */
-router.get('/admin', function (request, response, next) {
-    response.render('admin/admin', {});
-});
-
-/*  后台 - 用户管理 */
-router.get('/admin/user', function (request, response, next) {
-    var sql = "SELECT id, name, realName, phoneNumber FROM t_user";
-    //查询菜单表
-    mysqlClinet.exec(sql, null, function (err, users, fields) {
-        if (err) {
-            handleError(err, response);
-        } else {
-            console.log(sql + ' success');
-            if (!users) {
-                rows = [];
-            }
-            response.render('admin/user', {users: users});
-        }
-    });
-});
-
-/*  后台 - 餐馆管理 */
-router.get('/admin/restaurant', function (request, response, next) {
-    var sql = "SELECT id, name, phoneNumber FROM t_restaurant";
-    //查询菜单表
-    mysqlClinet.exec(sql, null, function (err, restaurants, fields) {
-        if (err) {
-            handleError(err, response);
-        } else {
-            console.log(sql + ' success');
-            if (!restaurants) {
-                restaurants = [];
-            }
-            response.render('admin/restaurant/manage', {restaurants: restaurants});
-        }
-    });
-});
-
-/*  后台 - 菜单管理 */
-router.get('/admin/dishes/:restaurantId', function (request, response, next) {
-    var today = getDayFormat();
-    var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
-    sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
-    //查询菜单表
-    mysqlClinet.exec(sql, [today], function (err, rows, fields) {
-        if (err) {
-            handleError(err, response);
-        } else {
-            console.log(sql + ' success');
-            if (!rows) {
-                rows = [];
-            }
-            response.render('admin/order', {orders: rows});
-        }
-    });
-});
-
-/*  后台 - 删除指定ID的餐馆 */
-router.get('/admin/restaurant/delete/:restaurantId', function (request, response, next) {
-    var sql = "DELETE * FROM t_restaurant WHERE id = ?";
-    mysqlClinet.exec(sql, [request.params.restaurantId], function (err, result, fields) {
-        if (err) {
-            console.log(e.stack);
-
-            var result = {
-                code: 1,
-                message: '失败'
-            };
-
-            response.send(result);
-        } else {
-            console.log(sql + ' success');
-
-            var result = {
-                code: 0,
-                message: '操作成功'
-            };
-
-            response.send(result);
-        }
-    });
-});
-
-/*  后台 - 显示指定ID的餐馆 */
-router.get('/admin/restaurant/show/:restaurantId', function (request, response, next) {
-    var sql = "SELECT * FROM t_restaurant WHERE id = ?";
-    mysqlClinet.exec(sql, [request.params.restaurantId], function (err, rows, fields) {
-        if (err) {
-            handleError(err, response);
-        } else {
-            console.log(sql + ' success');
-
-            if (!rows || rows.length == 0) {
-                var err = {};
-                err.stack = '没有给定id的餐馆';
-                err.message = '错误';
-                handleError(err, response);
-                return;
-            }
-
-            response.render('admin/restaurant/detail', {restaurant: rows[0]});
-        }
-    });
-});
-
-/*  后台 - 编辑指定ID的餐馆 */
-router.get('/admin/restaurant/edit/:restaurantId', function (request, response, next) {
-    var sql = "SELECT * FROM t_restaurant WHERE id = ?";
-    mysqlClinet.exec(sql, [request.params.restaurantId], function (err, rows, fields) {
-        if (err) {
-            handleError(err, response);
-        } else {
-            console.log(sql + ' success');
-
-            if (!rows || rows.length == 0) {
-                var err = {};
-                err.stack = '没有给定id的餐馆';
-                err.message = '错误';
-                handleError(err, response);
-                return;
-            }
-
-            response.render('admin/restaurant/edit', {restaurant: rows[0]});
-        }
-    });
-});
-
-/*  后台 - 删除全部餐馆  */
-router.get('/admin/restaurant/add', function (request, response, next) {
-    response.render('admin/restaurant/add', {});
-});
-
-/*  后台 - 删除全部餐馆  */
-router.get('/admin/restaurant/deleteAll', function (request, response, next) {
-    var sql = "DELETE FROM t_restaurant";
-    mysqlClinet.exec(sql, null, function (err, result, fields) {
-        if (err) {
-            console.log(e.stack);
-
-            var result = {
-                code: 1,
-                message: '失败'
-            };
-
-            response.send(result);
-        } else {
-            console.log(sql + ' success');
-
-            var result = {
-                code: 0,
-                message: '操作成功'
-            };
-
-            response.send(result);
-        }
-    });
-});
-
-/*  后台 - 订单管理 */
-router.get('/admin/order', function (request, response, next) {
-    var today = getDayFormat();
-    var sql = "SELECT t_user.realName, t_dishes.name, t_order.dishes_count FROM t_user, t_order, t_dishes ";
-    sql += "WHERE t_order.selected_date = ? AND t_order.user_id = t_user.id AND t_order.dishes_id = t_dishes.id";
-    //查询菜单表
-    mysqlClinet.exec(sql, [today], function (err, rows, fields) {
-        if (err) {
-            handleError(err, response);
-        } else {
-            console.log(sql + ' success');
-            if (!rows) {
-                rows = [];
-            }
-            response.render('admin/order', {orders: rows});
-        }
-    });
-});
-
-
-function handleError(err, response) {
-    console.log(err.stack);
-    response.render('error', {'message': err.message, 'error': err});
-}
-
-function getDayFormat() {
-    var today = new Date();
-    var year = today.getYear() + 1900;
-    var month = today.getMonth() + 1;
-    var day = today.getDate();
-
-    var str = year;
-    str += '-';
-    if (month < 10) {
-        str += '0';
-    }
-    str += month;
-    str += '-';
-    if (day < 10) {
-        str += '0';
-    }
-    str += day;
-    return str;
-}
-
-function xx(obj) {
-    // 参数数组
-    var arr = [];
-    // 循环添加参数项
-    for (var p in obj) {
-        arr.push(p + "=" + urlEncode(obj[p]));
-    }
-    // 排序
-    arr.sort();
-    // 参数串
-    var msg = arr.join('&');
-    console.log(msg);
-    return msg;
-}
-
-function urlEncode(str) {
-    str = (str + '').toString();
-
-    return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
-}
 
 module.exports = router;
