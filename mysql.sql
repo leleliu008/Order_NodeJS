@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS t_restaurant (
 	phoneNumber VARCHAR(20) NOT NULL DEFAULT '',
 	email VARCHAR(50) NOT NULL DEFAULT '',
 	city VARCHAR(50) NOT NULL DEFAULT '北京',
+	address VARCHAR(1024) NOT NULL DEFAULT '',
 	level INT NOT NULL DEFAULT 0,
 	levelName VARCHAR(50) NOT NULL DEFAULT '',
 	classifies VARCHAR(500) NOT NULL DEFAULT '');
@@ -56,8 +57,8 @@ CREATE TABLE IF NOT EXISTS t_order (
 INSERT INTO t_user (icon, name, password, realName, phoneNumber) VALUES ('https://avatars3.githubusercontent.com/u/290058?v=3&s=400', 'test', 'e10adc3949ba59abbe56e057f20f883e', '测试', '12345678910');
 
 
-INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('http://1684.dv37.com/upload/agent/201108/dc4b835a07a00f4ceaaa399adf7707ee.jpg', '半亩园', '15656059397', '面条类|砂锅类|烧饼类|小菜类|盖饭类|小吃类|饮料类');
-INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('/images/yota.png', 'Yota', '15656059397', '组合类');
+INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('http://1684.dv37.com/upload/agent/201108/dc4b835a07a00f4ceaaa399adf7707ee.jpg', '半亩园', '15810381169', '面条类|砂锅类|烧饼类|小菜类|盖饭类|小吃类|饮料类');
+INSERT INTO t_restaurant (icon, name, phoneNumber, classifies) VALUES ('/images/yota.png', 'Yota', '18801301850', '组合类');
 
 INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('/images/yota.png', '多菜组合盒饭', 28.0, '组合类', 2);
 INSERT INTO t_dishes (icon, name, price, classify, restaurant_id) VALUES ('http://i3.meishichina.com/attachment/recipe/201009/p320_201009161618302.jpg', '番茄鸡蛋拌面', 11.0, '面条类', 1);
