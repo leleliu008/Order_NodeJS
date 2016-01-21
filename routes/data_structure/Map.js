@@ -1,7 +1,7 @@
 function Map() {
 
-    var ks = [];
-    var kvs = {};
+    this.ks = [];
+    this.kvs = {};
 
     /**
      * 加入元素
@@ -9,8 +9,8 @@ function Map() {
      * @param value
      */
     Map.prototype.put = function (key, value) {
-        ks.push(key);
-        kvs[key] = value;
+        this.ks.push(key);
+        this.kvs[key] = value;
     };
 
 
@@ -21,8 +21,8 @@ function Map() {
      */
     Map.prototype.get = function(key) {
         console.log('key = ' + key);
-        console.log('value = ' + JSON.stringify(kvs[key]));
-        return kvs[key];
+        console.log('value = ' + JSON.stringify(this.kvs[key]));
+        return this.kvs[key];
     };
 
     /**
@@ -31,11 +31,11 @@ function Map() {
      * @returns {*}
      */
     Map.prototype.remove = function (key) {
-        var index = ks.indexOf(key);
+        var index = this.ks.indexOf(key);
         if (index >= 0) {
-            ks.splice(index, 1);
-            var result = kvs[key];
-            kvs[key] = undefined;
+            this.ks.splice(index, 1);
+            var result = this.kvs[key];
+            this.kvs[key] = undefined;
             return result;
         }
         return undefined;
@@ -47,7 +47,7 @@ function Map() {
      * @returns {boolean}
      */
     Map.prototype.containsKey = function (key) {
-        return kvs[key] ? true : false;
+        return this.kvs[key] ? true : false;
     };
 
     /**
@@ -56,8 +56,8 @@ function Map() {
      * @returns {boolean}
      */
     Map.prototype.containsValue = function (value) {
-        for (var temp in kvs) {
-            if (kvs[temp] == value) {
+        for (var temp in this.kvs) {
+            if (this.kvs[temp] == value) {
                 return true;
             }
         }
@@ -70,7 +70,7 @@ function Map() {
      * @returns {number}
      */
     Map.prototype.size = function () {
-        return ks.length;
+        return this.ks.length;
     };
 
     /**
@@ -78,7 +78,7 @@ function Map() {
      * @returns {Array}
      */
     Map.prototype.keySet = function () {
-        return ks;
+        return this.ks;
     };
 
     /**
@@ -86,7 +86,7 @@ function Map() {
      * @returns {{}}
      */
     Map.prototype.values = function () {
-        return kvs;
+        return this.kvs;
     }
 }
 

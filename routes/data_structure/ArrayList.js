@@ -37,7 +37,7 @@ function ArrayList() {
 	 * @param index 索引
 	 */
 	ArrayList.prototype.removeAt = function(index) {
-		elements.splice(index, 1);
+		this.elements.splice(index, 1);
 	};
 
 	/**

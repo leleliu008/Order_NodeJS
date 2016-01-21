@@ -50,7 +50,7 @@
                         <tbody>
                         <tr>
                             <td><%= item.realName %></td>
-                            <td><%= item.name %></td>
+                            <td><%= item.dishes_name %></td>
                             <td><%= item.price %>￥</td>
                             <td><%= item.dishes_count %></td>
                         </tr>
@@ -67,8 +67,24 @@
                 <div style="padding-left: 20px; padding-top: 5px; padding-bottom: 5px">
                     订餐总金额：<%= totalPrice %>￥
                 </div>
+                <% if (restaurants && restaurants.length > 0) { %>
+                <% restaurants.forEach(function(item) { %>
+                <div style="padding-left: 20px; padding-top: 5px; padding-bottom: 5px; font-weight: bold">
+                    <%= item.name %>（电话：<%= item.phoneNumber %>）
+                </div>
+                <% if (item.details && item.details.length > 0) { %>
+                <% item.details.forEach(function(item) { %>
+                <div style="padding-left: 20px; padding-top: 5px; padding-bottom: 5px">
+                    <%= item.name %>（<%= item.count %>个）
+                </div>
+                <% }); %>
+                <% } %>
+                <% }); %>
+                <% } %>
                 <div class="text-center">
-                    <button class="btn btn-success" style="width: 50%; margin-top: 20px; margin-bottom: 20px">发送给商家</button>
+                    <button id="sendBtn" class="btn btn-success"
+                            style="width: 50%; margin-top: 20px; margin-bottom: 20px">发送给商家
+                    </button>
                 </div>
                 <% } else { %>
                 <div class="h2 text-center" style="height: 300px; padding-top: 130px">
@@ -85,6 +101,60 @@
 
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/layer/layer.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#sendBtn').click(function () {
+            var restaurants = '<%- JSON.stringify(restaurants) %>';
+            $.ajax({
+                url: '/admin/order/send',      //请求的url地址，这是相对于现在的位置的地址
+                dataType: 'json',              //返回格式为json
+                async: true,                   //请求是否异步，默认为异步，这也是ajax重要特性
+                traditional:true,
+                data: {restaurants: restaurants},             //参数值
+                type: 'POST',                  //请求方式
+                beforeSend: function () {      //请求前的处理
 
+                },
+                success: function (response) { //请求成功时处理
+                    var errMsg = '发送失败';
+
+                    if (response) {
+                        if (response.code == 0) {
+                            layer.alert('发送成功', {
+                                skin: 'layui-layer-molv',  //样式类名
+                                closeBtn: 0,
+                                shift: 2 //动画类型
+                            }, function () {
+                                location.reload();
+                            });
+                            return;
+                        }
+
+                        if (response.message) {
+                            errMsg = response.message;
+                        }
+                    }
+
+                    layer.alert(errMsg, {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                error: function () {          //请求出错处理
+                    layer.alert('请求失败，请重试！', {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                complete: function () {       //请求完成的处理
+
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
