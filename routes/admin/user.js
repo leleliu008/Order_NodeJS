@@ -19,7 +19,7 @@ router.get('/', function (request, response, next) {
     //查询菜单表
     mysqlClinet.exec(sql, null, function (err, users, fields) {
         if (err) {
-            handleError(err, response);
+            common.handleError(err, response);
         } else {
             console.log(sql + ' success');
             if (!users) {
@@ -139,7 +139,7 @@ router.get('/show/:userId', function (request, response, next) {
     var sql = "SELECT * FROM t_user WHERE id = ?";
     mysqlClinet.exec(sql, [request.params.userId], function (err, rows, fields) {
         if (err) {
-            handleError(err, response);
+            common.handleError(err, response);
         } else {
             console.log(sql + ' success');
 
@@ -147,7 +147,7 @@ router.get('/show/:userId', function (request, response, next) {
                 var err = {};
                 err.stack = '没有给定id的用户';
                 err.message = '错误';
-                handleError(err, response);
+                common.handleError(err, response);
                 return;
             }
 
@@ -159,9 +159,9 @@ router.get('/show/:userId', function (request, response, next) {
 /*  后台 - 编辑指定ID的用户 */
 router.get('/edit/:userId', function (request, response, next) {
     var sql = "SELECT * FROM t_user WHERE id = ?";
-    mysqlClinet.exec(sql, [request.params.ruserId], function (err, rows, fields) {
+    mysqlClinet.exec(sql, [request.params.userId], function (err, rows, fields) {
         if (err) {
-            handleError(err, response);
+            common.handleError(err, response);
         } else {
             console.log(sql + ' success');
 
@@ -169,7 +169,7 @@ router.get('/edit/:userId', function (request, response, next) {
                 var err = {};
                 err.stack = '没有给定id的用户';
                 err.message = '错误';
-                handleError(err, response);
+                common.handleError(err, response);
                 return;
             }
 
