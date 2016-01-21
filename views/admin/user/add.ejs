@@ -28,7 +28,7 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <div class="h1" style="display: inline-block">添加餐馆</div>
+                    <div class="h1" style="display: inline-block">添加用户</div>
                 </div>
 
                 <div class="panel-body">
@@ -39,10 +39,26 @@
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
                             <div class="text-right" style="width: 50px">
-                                姓名：
+                                昵称：
                             </div>
                         </div>
-                        <input id="name" type="text" class="form-control">
+                        <input type="text" class="form-control" id="name" placeholder="请输入昵称">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                真名：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="realName" placeholder="请输入真实姓名">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                生日：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="birthday" placeholder="请输入生日，格式示例：1990-12-30">
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
@@ -50,7 +66,7 @@
                                 手机：
                             </div>
                         </div>
-                        <input id="phoneNumber" type="text" class="form-control">
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
@@ -58,7 +74,15 @@
                                 邮箱：
                             </div>
                         </div>
-                        <input id="email" type="text" class="form-control">
+                        <input type="text" class="form-control" id="email" placeholder="请输入邮箱">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                国家：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="country" placeholder="请输入所在国家">
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
@@ -66,15 +90,7 @@
                                 城市：
                             </div>
                         </div>
-                        <input id="city" type="text" class="form-control">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px">
-                        <div class="input-group-addon">
-                            <div class="text-right" style="width: 50px">
-                                地址：
-                            </div>
-                        </div>
-                        <input id="address" type="text" class="form-control">
+                        <input type="text" class="form-control" id="city" placeholder="请输入所在城市">
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
@@ -82,15 +98,7 @@
                                 星级：
                             </div>
                         </div>
-                        <input id="level" type="text" class="form-control">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px">
-                        <div class="input-group-addon">
-                            <div class="text-right" style="width: 50px">
-                                类别：
-                            </div>
-                        </div>
-                        <input id="classifies" type="text" class="form-control" placeholder="不同的类别之间以‘，’分割">
+                        <input type="text" class="form-control" id="level" placeholder="请输入星级，是数字">
                     </div>
                 </div>
                 <div class="text-center">
@@ -113,15 +121,17 @@
     $(document).ready(function () {
         $('#commitBtn').click(function () {
             var name = $('#name').val();
+            var realName = $('#realName').val();
+            var birthday = $('#birthday').val();
             var phoneNumber = $('#phoneNumber').val();
             var email = $('#email').val();
+            var country = $('#country').val();
             var city = $('#city').val();
-            var address = $('#address').val();
             var level = $('#level').val();
-            var classifies = $('#classifies').val();
+
 
             if (!name) {
-                layer.alert('请输入餐馆的名字', {
+                layer.alert('请输入用户的昵称', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -129,8 +139,35 @@
                 return;
             }
 
-            if (!name) {
-                layer.alert('请输入餐馆的手机号码', {
+            if (!realName) {
+                layer.alert('请输入用户的真实姓名', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+                return;
+            }
+
+            if (!birthday) {
+                layer.alert('请输入用户的生日', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+                return;
+            }
+
+            if (!phoneNumber) {
+                layer.alert('请输入用户的手机号码', {
+                    skin: 'layui-layer-molv',  //样式类名
+                    closeBtn: 0,
+                    shift: 2 //动画类型
+                });
+                return;
+            }
+
+            if (!country) {
+                layer.alert('请输入用户所在的国家', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -139,7 +176,7 @@
             }
 
             if (!city) {
-                layer.alert('请输入餐馆的所在城市', {
+                layer.alert('请输入用户的所在城市', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -147,8 +184,8 @@
                 return;
             }
 
-            if (!address) {
-                layer.alert('请输入餐馆的地址', {
+            if (!level) {
+                layer.alert('请输入用户的等级', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -156,30 +193,22 @@
                 return;
             }
 
-            if (!classifies) {
-                layer.alert('请输入餐馆的菜品分类', {
-                    skin: 'layui-layer-molv',  //样式类名
-                    closeBtn: 0,
-                    shift: 2 //动画类型
-                });
-                return;
-            }
-
-            var restaurant = {};
-            restaurant.icon = 'https://avatars3.githubusercontent.com/u/290058?v=3&s=400';
-            restaurant.name = name;
-            restaurant.phoneNumber = phoneNumber;
-            restaurant.email = email;
-            restaurant.city = city;
-            restaurant.address = address;
-            restaurant.level = level;
-            restaurant.classifies = classifies;
+            var user = {};
+            user.icon = 'https://avatars3.githubusercontent.com/u/290058?v=3&s=400';
+            user.name = name;
+            user.realName = realName;
+            user.birthday = birthday;
+            user.phoneNumber = phoneNumber;
+            user.email = email;
+            user.country = country;
+            user.city = city;
+            user.level = level;
 
             $.ajax({
-                url: '/admin/restaurant/add',  //请求的url地址，这是相对于现在的位置的地址
+                url: '/admin/user/add',        //请求的url地址，这是相对于现在的位置的地址
                 dataType: 'json',              //返回格式为json
                 async: true,                   //请求是否异步，默认为异步，这也是ajax重要特性
-                data: restaurant,              //参数值
+                data: user,                    //参数值
                 type: 'POST',                  //请求方式
                 beforeSend: function () {      //请求前的处理
 

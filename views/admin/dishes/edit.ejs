@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <title>乐餐吧后台———添加餐馆</title>
+    <title>乐餐吧后台———编辑菜目</title>
 
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
@@ -28,69 +28,41 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <div class="h1" style="display: inline-block">添加餐馆</div>
+                    <div class="h1" style="display: inline-block">编辑菜目</div>
                 </div>
 
+                <% if (dishes) { %>
                 <div class="panel-body">
                     <div class="text-center">
-                        <img src="/images/user_default_icon.png" class="img-rounded"
+                        <img src="<%= dishes.icon %>" class="img-rounded"
                              style="margin-top: 20px; margin-bottom: 20px; width: 100px; height: 100px">
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
                             <div class="text-right" style="width: 50px">
-                                名称：
+                                菜名：
                             </div>
                         </div>
-                        <input id="name" type="text" class="form-control">
+                        <input type="text" class="form-control" id="name" value="<%= dishes.name %>">
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
                             <div class="text-right" style="width: 50px">
-                                手机：
+                                价格：
                             </div>
                         </div>
-                        <input id="phoneNumber" type="text" class="form-control">
+                        <input type="text" class="form-control" id="price" value="<%= dishes.price %>">
+                        <div class="input-group-addon">
+                            ￥
+                        </div>
                     </div>
                     <div class="input-group" style="margin-top: 10px">
                         <div class="input-group-addon">
                             <div class="text-right" style="width: 50px">
-                                邮箱：
+                                分类：
                             </div>
                         </div>
-                        <input id="email" type="text" class="form-control">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px">
-                        <div class="input-group-addon">
-                            <div class="text-right" style="width: 50px">
-                                城市：
-                            </div>
-                        </div>
-                        <input id="city" type="text" class="form-control">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px">
-                        <div class="input-group-addon">
-                            <div class="text-right" style="width: 50px">
-                                地址：
-                            </div>
-                        </div>
-                        <input id="address" type="text" class="form-control">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px">
-                        <div class="input-group-addon">
-                            <div class="text-right" style="width: 50px">
-                                星级：
-                            </div>
-                        </div>
-                        <input id="level" type="text" class="form-control">
-                    </div>
-                    <div class="input-group" style="margin-top: 10px">
-                        <div class="input-group-addon">
-                            <div class="text-right" style="width: 50px">
-                                类别：
-                            </div>
-                        </div>
-                        <input id="classifies" type="text" class="form-control" placeholder="不同的类别之间以‘，’分割">
+                        <input type="text" class="form-control" id="classify" value="<%= dishes.classify %>">
                     </div>
                 </div>
                 <div class="text-center">
@@ -98,6 +70,7 @@
                             style="margin-bottom: 20px; width: 50%">提交
                     </button>
                 </div>
+                <% } %>
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
@@ -113,15 +86,11 @@
     $(document).ready(function () {
         $('#commitBtn').click(function () {
             var name = $('#name').val();
-            var phoneNumber = $('#phoneNumber').val();
-            var email = $('#email').val();
-            var city = $('#city').val();
-            var address = $('#address').val();
-            var level = $('#level').val();
-            var classifies = $('#classifies').val();
+            var price = $('#price').val();
+            var classify = $('#classify').val();
 
             if (!name) {
-                layer.alert('请输入餐馆的名字', {
+                layer.alert('请输入菜名', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -129,8 +98,8 @@
                 return;
             }
 
-            if (!name) {
-                layer.alert('请输入餐馆的手机号码', {
+            if (!price) {
+                layer.alert('请输入菜价', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -138,8 +107,8 @@
                 return;
             }
 
-            if (!city) {
-                layer.alert('请输入餐馆的所在城市', {
+            if (!classify) {
+                layer.alert('请输入所属分类', {
                     skin: 'layui-layer-molv',  //样式类名
                     closeBtn: 0,
                     shift: 2 //动画类型
@@ -147,49 +116,27 @@
                 return;
             }
 
-            if (!address) {
-                layer.alert('请输入餐馆的地址', {
-                    skin: 'layui-layer-molv',  //样式类名
-                    closeBtn: 0,
-                    shift: 2 //动画类型
-                });
-                return;
-            }
-
-            if (!classifies) {
-                layer.alert('请输入餐馆的菜品分类', {
-                    skin: 'layui-layer-molv',  //样式类名
-                    closeBtn: 0,
-                    shift: 2 //动画类型
-                });
-                return;
-            }
-
-            var restaurant = {};
-            restaurant.icon = 'https://avatars3.githubusercontent.com/u/290058?v=3&s=400';
-            restaurant.name = name;
-            restaurant.phoneNumber = phoneNumber;
-            restaurant.email = email;
-            restaurant.city = city;
-            restaurant.address = address;
-            restaurant.level = level;
-            restaurant.classifies = classifies;
+            var dishes = {};
+            dishes.icon = 'https://avatars3.githubusercontent.com/u/290058?v=3&s=400';
+            dishes.name = name;
+            dishes.price = price;
+            dishes.classify = classify;
 
             $.ajax({
-                url: '/admin/restaurant/add',  //请求的url地址，这是相对于现在的位置的地址
+                url: '/admin/restaurant/<%= restaurantId %>/dishes/<%= dishes.id %>/edit',  //请求的url地址，这是相对于现在的位置的地址
                 dataType: 'json',              //返回格式为json
                 async: true,                   //请求是否异步，默认为异步，这也是ajax重要特性
-                data: restaurant,              //参数值
+                data: dishes,              //参数值
                 type: 'POST',                  //请求方式
                 beforeSend: function () {      //请求前的处理
 
                 },
                 success: function (response) { //请求成功时处理
-                    var errMsg = '添加失败';
+                    var errMsg = '更新失败';
 
                     if (response) {
                         if (response.code == 0) {
-                            layer.alert('添加成功', {
+                            layer.alert('更新成功', {
                                 skin: 'layui-layer-molv',  //样式类名
                                 closeBtn: 0,
                                 shift: 2 //动画类型

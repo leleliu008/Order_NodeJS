@@ -110,7 +110,7 @@ router.post('/delete/all', function (request, response, next) {
 });
 
 /*  后台 - 删除指定ID的餐馆 */
-router.post('/delete/:restaurantId', function (request, response, next) {
+router.post('/:restaurantId/delete', function (request, response, next) {
     var sql = "DELETE FROM t_restaurant WHERE id = ?";
     mysqlClinet.exec(sql, [request.params.restaurantId], function (err, result, fields) {
         if (err) {
@@ -136,7 +136,7 @@ router.post('/delete/:restaurantId', function (request, response, next) {
 });
 
 /*  后台 - 显示指定ID的餐馆 */
-router.get('/show/:restaurantId', function (request, response, next) {
+router.get('/:restaurantId/show', function (request, response, next) {
     var sql = "SELECT * FROM t_restaurant WHERE id = ?";
     mysqlClinet.exec(sql, [request.params.restaurantId], function (err, rows, fields) {
         if (err) {
@@ -158,7 +158,7 @@ router.get('/show/:restaurantId', function (request, response, next) {
 });
 
 /*  后台 - 编辑指定ID的餐馆 */
-router.get('/edit/:restaurantId', function (request, response, next) {
+router.get('/:restaurantId/edit', function (request, response, next) {
     var sql = "SELECT * FROM t_restaurant WHERE id = ?";
     mysqlClinet.exec(sql, [request.params.restaurantId], function (err, rows, fields) {
         if (err) {
@@ -180,7 +180,7 @@ router.get('/edit/:restaurantId', function (request, response, next) {
 });
 
 /*  后台 - 修改餐馆信息  */
-router.post('/edit/:restaurantId', function (request, response, next) {
+router.post('/:restaurantId/edit', function (request, response, next) {
     var restaurantId = request.params.restaurantId;
     var restaurant = request.body;
     if (restaurantId && restaurant) {
@@ -225,5 +225,7 @@ router.post('/edit/:restaurantId', function (request, response, next) {
         response.send(result);
     }
 });
+
+require('./dishes.js').run(router, mysqlClinet, common);
 
 module.exports = router;

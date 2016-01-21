@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <title>乐餐吧后台———餐馆管理</title>
+    <title>乐餐吧后台———菜目管理</title>
 
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet" type="text/css"/>
@@ -28,11 +28,11 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
-                    <div class="h1" style="display: inline-block">餐馆管理</div>
+                    <div class="h1" style="display: inline-block">菜目管理</div>
                     </a>
                 </div>
 
-                <% if (restaurants && restaurants.length > 0) { %>
+                <% if (dishes && dishes.length > 0) { %>
                 <div style="padding: 10px; border-bottom: 1px solid gainsboro">
                     餐馆列表：
                 </div>
@@ -42,11 +42,11 @@
                         <tr>
                             <th>序号</th>
                             <th>名称</th>
-                            <th>手机号码</th>
+                            <th>价格</th>
                         </tr>
                         </thead>
-                        <% for (var i = 0; i < restaurants.length; i++) { %>
-                        <% var item = restaurants[i] %>
+                        <% for (var i = 0; i < dishes.length; i++) { %>
+                        <% var item = dishes[i] %>
                         <tbody>
                         <tr>
                             <td>
@@ -57,18 +57,16 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="/admin/restaurant/<%= item.id %>/dishes">菜单</a></li>
+                                        <li><a href="/admin/restaurant/<%= restaurantId %>/dishes/<%= item.id %>/show">详情</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="/admin/restaurant/<%= item.id %>/show">详情</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="/admin/restaurant/<%= item.id %>/edit">编辑</a></li>
+                                        <li><a href="/admin/restaurant/<%= restaurantId %>/dishes/<%= item.id %>/edit">编辑</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li id="delete_<%= item.id %>" style="padding-left: 20px">删除</li>
                                     </ul>
                                 </div>
                             </td>
                             <td><%= item.name %></td>
-                            <td><%= item.phoneNumber %></td>
+                            <td><%= item.price %>￥</td>
                         </tr>
                         </tbody>
                         <% } %>
@@ -76,13 +74,13 @@
                 </div>
                 <% } else { %>
                 <div class="h2 text-center" style="height: 300px; padding-top: 130px">
-                    无餐馆
+                    无菜
                 </div>
                 <% } %>
 
                 <div class="text-center" style="margin-top: 20px; margin-bottom: 20px">
                     <button id="deleteAllBtn" type="button" class="btn btn-success" style="width: 40%">删除全部</button>
-                    <a href="/admin/restaurant/add" class="btn btn-success" style="width: 40%">添加餐馆</a>
+                    <a href="/admin/restaurant/<%= restaurantId %>/dishes/add" class="btn btn-success" style="width: 40%">添加餐馆</a>
                 </div>
             </div>
         </div>
@@ -97,10 +95,10 @@
 <script src="/javascripts/layer/layer.js"></script>
 <script>
     $(document).ready(function () {
-        var restaurants = '<%- JSON.stringify(restaurants) %>';
-        restaurants = JSON.parse(restaurants);
+        var dishes = '<%- JSON.stringify(dishes) %>';
+        dishes = JSON.parse(dishes);
 
-        restaurants.forEach(function (item) {
+        dishes.forEach(function (item) {
             handleDelete(item);
         });
     });
@@ -108,7 +106,7 @@
     function handleDelete(item) {
         $('#delete_' + item.id).click(function () {
             $.ajax({
-                url: '/admin/restaurant/' + item.id + '/delete', //请求的url地址，这是相对于现在的位置的地址
+                url: '/admin/restaurant/<%= restaurantId %>/dishes/' + item.id + '/delete', //请求的url地址，这是相对于现在的位置的地址
                 dataType: 'json',              //返回格式为json
                 async: true,                   //请求是否异步，默认为异步，这也是ajax重要特性
                 data: {},                      //参数值
@@ -125,7 +123,7 @@
                                 skin: 'layui-layer-molv',  //样式类名
                                 closeBtn: 0,
                                 shift: 2 //动画类型
-                            }, function() {
+                            }, function () {
                                 location.reload();
                             });
                             return;
@@ -156,7 +154,7 @@
         });
         $('#deleteAllBtn').click(function () {
             $.ajax({
-                url: '/admin/restaurant/delete/all', //请求的url地址，这是相对于现在的位置的地址
+                url: '/admin/restaurant/<%= restaurantId %>/dishes/all/delete', //请求的url地址，这是相对于现在的位置的地址
                 dataType: 'json',              //返回格式为json
                 async: true,                   //请求是否异步，默认为异步，这也是ajax重要特性
                 data: {},                      //参数值
@@ -173,7 +171,7 @@
                                 skin: 'layui-layer-molv',  //样式类名
                                 closeBtn: 0,
                                 shift: 2 //动画类型
-                            }, function() {
+                            }, function () {
                                 location.reload();
                             });
                             return;

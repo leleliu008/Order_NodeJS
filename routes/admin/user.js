@@ -41,17 +41,20 @@ router.post('/add', function (request, response, next) {
     console.log('user = ' + JSON.stringify(user));
 
     if (user) {
-        var sql = "INSERT INTO t_user (icon, name, phoneNumber, email, city, address, level, levelName, classifies) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var sql = "INSERT INTO t_user (icon, name, realName, birthday, phoneNumber, email, country, city, level, levelName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
         var icon = user.icon;
         var name = user.name;
+        var realName = user.realName;
+        var birthday = user.birthday;
         var phoneNumber = user.phoneNumber;
         var email = user.email;
+        var country = user.country;
         var city = user.city;
-        var address = user.address;
         var level = user.level;
-        var classifies = user.classifies;
+        var levelName = '江湖小虾';
 
-        mysqlClinet.exec(sql, [icon, name, phoneNumber, email, city, address, level, levelName, classifies], function (err, result, fields) {
+        mysqlClinet.exec(sql, [icon, name, realName, birthday, phoneNumber, email, country, city, level, levelName], function (err, result, fields) {
             if (err) {
                 console.log(err.stack);
 
@@ -183,17 +186,19 @@ router.post('/edit/:userId', function (request, response, next) {
     var userId = request.params.userId;
     var user = request.body;
     if (userId && user) {
-        var sql = "UPDATE t_user SET icon=?, name=?, phoneNumber=?, email=?, city=?, address=?, level=?, levelName=?, classifies=? WHERE id=" + userId;
+        var sql = "UPDATE t_user SET icon=?, name=?, realName=?, birthday=?, phoneNumber=?, email=?, country=?, city=?, level=?, levelName=? WHERE id=" + userId;
         var icon = user.icon;
         var name = user.name;
+        var realName = user.realName;
+        var birthday = user.birthday;
         var phoneNumber = user.phoneNumber;
         var email = user.email;
+        var country = user.country;
         var city = user.city;
-        var address = user.address;
         var level = user.level;
-        var classifies = user.classifies;
+        var levelName = '江湖小虾';
 
-        mysqlClinet.exec(sql, [icon, name, phoneNumber, email, city, address, level, levelName, classifies], function (err, result, fields) {
+        mysqlClinet.exec(sql, [icon, name, realName, birthday, phoneNumber, email, country, city, level, levelName], function (err, result, fields) {
             if (err) {
                 console.log(err.stack);
 

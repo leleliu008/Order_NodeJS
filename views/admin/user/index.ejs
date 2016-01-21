@@ -78,8 +78,8 @@
                 <% } %>
 
                 <div class="text-center" style="margin-top: 20px; margin-bottom: 20px">
-                    <button type="button" class="btn btn-success" style="width: 40%">删除全部</button>
-                    <button type="button" class="btn btn-success" style="width: 40%">添加用户</button>
+                    <button id="deleteAllBtn" type="button" class="btn btn-success" style="width: 40%">删除全部</button>
+                    <a href="/admin/user/add" type="button" class="btn btn-success" style="width: 40%">添加用户</a>
                 </div>
             </div>
         </div>
@@ -114,11 +114,65 @@
 
                 },
                 success: function (response) { //请求成功时处理
-                    var errMsg = '登陆失败';
+                    var errMsg = '删除失败';
 
                     if (response) {
                         if (response.code == 0) {
+                            layer.alert('删除成功', {
+                                skin: 'layui-layer-molv',  //样式类名
+                                closeBtn: 0,
+                                shift: 2 //动画类型
+                            }, function() {
+                                location.reload();
+                            });
+                            return;
+                        }
 
+                        if (response.message) {
+                            errMsg = response.message;
+                        }
+                    }
+
+                    layer.alert(errMsg, {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                error: function () {          //请求出错处理
+                    layer.alert('请求失败，请重试！', {
+                        skin: 'layui-layer-molv',  //样式类名
+                        closeBtn: 0,
+                        shift: 2 //动画类型
+                    });
+                },
+                complete: function () {       //请求完成的处理
+
+                }
+            });
+        });
+        $('#deleteAllBtn').click(function () {
+            $.ajax({
+                url: '/admin/user/delete/all', //请求的url地址，这是相对于现在的位置的地址
+                dataType: 'json',              //返回格式为json
+                async: true,                   //请求是否异步，默认为异步，这也是ajax重要特性
+                data: {},                      //参数值
+                type: 'POST',                  //请求方式
+                beforeSend: function () {      //请求前的处理
+
+                },
+                success: function (response) { //请求成功时处理
+                    var errMsg = '删除失败';
+
+                    if (response) {
+                        if (response.code == 0) {
+                            layer.alert('删除成功', {
+                                skin: 'layui-layer-molv',  //样式类名
+                                closeBtn: 0,
+                                shift: 2 //动画类型
+                            }, function() {
+                                location.reload();
+                            });
                             return;
                         }
 
