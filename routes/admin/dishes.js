@@ -1,9 +1,10 @@
 function run(router, mysqlClinet, common) {
     /*  后台 - 菜单管理 */
     router.get('/:restaurantId/dishes', function (request, response, next) {
-        var sql = "SELECT * FROM t_dishes";
+        var restaurantId = request.params.restaurantId;
+        var sql = "SELECT * FROM t_dishes WHERE restaurant_id=?";
         //查询菜单表
-        mysqlClinet.exec(sql, null, function (err, rows, fields) {
+        mysqlClinet.exec(sql, [restaurantId], function (err, rows, fields) {
             if (err) {
                 common.handleError(err, response);
             } else {
@@ -11,7 +12,7 @@ function run(router, mysqlClinet, common) {
                 if (!rows) {
                     rows = [];
                 }
-                response.render('admin/dishes/index', {restaurantId: request.params.restaurantId, dishes: rows});
+                response.render('admin/dishes/index', {restaurantId: restaurantId, dishes: rows});
             }
         });
     });
