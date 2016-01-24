@@ -98,9 +98,10 @@
         var users = '<%- JSON.stringify(users) %>';
         users = JSON.parse(users);
 
-        users.forEach(function (item) {
+        for (var i = 0; i < users.length; i++) {
+            var item = users[i];
             handleDelete(item);
-        });
+        }
     });
 
     function handleDelete(item) {

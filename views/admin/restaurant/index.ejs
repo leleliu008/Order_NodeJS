@@ -101,9 +101,10 @@
         var restaurants = '<%- JSON.stringify(restaurants) %>';
         restaurants = JSON.parse(restaurants);
 
-        restaurants.forEach(function (item) {
+        for (var i = 0; i < restaurants.length; i++) {
+            var item = restaurants[i];
             handleDelete(item);
-        });
+        }
     });
 
     function handleDelete(item) {

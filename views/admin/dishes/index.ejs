@@ -99,9 +99,10 @@
         var dishes = '<%- JSON.stringify(dishes) %>';
         dishes = JSON.parse(dishes);
 
-        dishes.forEach(function (item) {
+        for (var i = 0; i < dishes.length; i++) {
+            var item = dishes[i];
             handleDelete(item);
-        });
+        }
     });
 
     function handleDelete(item) {
