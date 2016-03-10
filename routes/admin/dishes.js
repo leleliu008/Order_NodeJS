@@ -28,15 +28,16 @@ function run(router, mysqlClinet, common) {
         console.log('dishes = ' + JSON.stringify(dishes));
 
         if (dishes) {
-            var sql = "INSERT INTO t_dishes (icon, name, price, level, levelName, classify) VALUES (?, ?, ?, ?, ?, ?)";
+            var sql = "INSERT INTO t_dishes (icon, name, price, level, levelName, restaurant_id, classify) VALUES (?, ?, ?, ?, ?, ?, ?)";
             var icon = dishes.icon;
             var name = dishes.name;
             var price = dishes.price;
             var level = 0;
             var levelName = '无极';
             var classify = dishes.classify;
+            var restaurantId = request.params.restaurantId;
 
-            mysqlClinet.exec(sql, [icon, name, price, level, levelName, classify], function (err, result, fields) {
+            mysqlClinet.exec(sql, [icon, name, price, level, levelName, restaurantId, classify], function (err, result, fields) {
                 if (err) {
                     console.log(err.stack);
 
