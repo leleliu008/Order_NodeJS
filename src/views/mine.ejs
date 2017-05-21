@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>乐餐吧———我的</title>
+
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script src="/bower_components/respond/dest/respond.min.js"></script>
+    <script src="/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body style="font-size: 12px">
+
+<div class="container">
+
+    <div class="row" style="margin-top: 5px">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div id="container" class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="h1 text-center">
+                        乐餐吧
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 20px; margin-bottom: 20px">
+                    <img id="icon" src="/images/user_default_icon.png" class="img-circle mine-user-icon" />
+                    <div class="mine-user">
+                        <div id="name" class="mine-user-name text-left"></div>
+                        <div id="telephone" class="mine-user-telephone"></div>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" id="change-password">
+                        <img src="/images/ic_weixin_normal.png" class="img-circle item-icon"/>
+                        <div class="item-text">修改密码</div>
+                        <img src="/images/arrow_right_normal.png" class="img-circle pull-right"/>
+                    </li>
+                    <li class="list-group-item" id="order-mine">
+                        <img src="/images/ic_weixin_normal.png" class="img-circle item-icon"/>
+                        <div class="item-text">我的订单</div>
+                        <div class="pull-right">
+                            <div class="item-text text-danger" style="font-size: 14px">只显示今日订单</div>
+                            <img src="/images/arrow_right_normal.png" class="img-circle"/>
+                        </div>
+                    </li>
+                    <li class="list-group-item" id="order-all">
+                        <img src="/images/ic_weixin_normal.png" class="img-circle item-icon"/>
+                        <div class="item-text">所有订单</div>
+                        <img src="/images/arrow_right_normal.png" class="img-circle pull-right"/>
+                    </li>
+                    <li class="list-group-item" id="about">
+                        <img src="/images/ic_weixin_normal.png" class="img-circle item-icon"/>
+                        <div class="item-text">关于</div>
+                        <img src="/images/arrow_right_normal.png" class="img-circle pull-right"/>
+                    </li>
+                    <li class="list-group-item">
+                        <button class="btn btn-success btn-logout center-horizontal-in-parent">
+                            退出
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+    </div>
+</div>
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/layer/build/layer.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/mine.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "Order_NodeJS",
+  "homepage": "https://github.com/leleliu008/Order_NodeJS",
+  "authors": [
+    "leleliu008 <792793182@qq.com>"
+  ],
+  "description": "企业员工晚上加班点餐系统，基于node.js + express + ejs + Bootstrap + MySql的WebStorm工程",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "Order"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "html5shiv": "^3.7.3",
+    "layer": "^3.0.3",
+    "modernizer": "^2.8.2",
+    "respond": "^1.4.2"
+  }
+}

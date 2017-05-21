@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>乐餐吧后台———编辑餐馆</title>
+
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script src="/bower_components/respond/dest/respond.min.js"></script>
+    <script src="/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body style="font-size: 12px">
+
+<div class="container">
+    <div class="row" style="margin-top: 5px">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div id="container" class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <div class="h1" style="display: inline-block">编辑餐馆</div>
+                </div>
+
+                <% if (restaurant) { %>
+                <div class="panel-body">
+                    <div class="text-center">
+                        <img src="<%= restaurant.icon %>" class="img-rounded"
+                             style="margin-top: 20px; margin-bottom: 20px; width: 100px; height: 100px">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                姓名：
+                            </div>
+                        </div>
+                        <input id="name" type="text" class="form-control" value="<%= restaurant.name %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                手机：
+                            </div>
+                        </div>
+                        <input id="phoneNumber" type="text" class="form-control" value="<%= restaurant.phoneNumber %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                邮箱：
+                            </div>
+                        </div>
+                        <input id="email" type="text" class="form-control" value="<%= restaurant.email %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                城市：
+                            </div>
+                        </div>
+                        <input id="city" type="text" class="form-control" value="<%= restaurant.city %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                地址：
+                            </div>
+                        </div>
+                        <input id="address" type="text" class="form-control" value="<%= restaurant.address %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                星级：
+                            </div>
+                        </div>
+                        <input id="level" type="text" class="form-control" value="<%= restaurant.levelName %>">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                类别：
+                            </div>
+                        </div>
+                        <input id="classifies" type="text" class="form-control" value="<%= restaurant.classifies %>">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button id="commitBtn" type="button" class="btn btn-success"
+                            style="margin-top: 20px; margin-bottom: 20px; width: 50%">提交
+                    </button>
+                </div>
+
+                <% } %>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+    </div>
+</div>
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/layer/build/layer.js"></script>
+<script src="/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#commitBtn').click(function () {
+            var name = $('#name').val();
+            if (!name) {
+                showAlert('请输入餐馆的名字');
+                return;
+            }
+
+            var phoneNumber = $('#phoneNumber').val();
+            if (!phoneNumber) {
+                showAlert('请输入餐馆的手机号码');
+                return;
+            }
+
+            var city = $('#city').val();
+            if (!city) {
+                showAlert('请输入餐馆的所在城市');
+                return;
+            }
+
+            var address = $('#address').val();
+            if (!address) {
+                showAlert('请输入餐馆的地址');
+                return;
+            }
+
+            var classifies = $('#classifies').val();
+            if (!classifies) {
+                showAlert('请输入餐馆的菜品分类');
+                return;
+            }
+
+            var email = $('#email').val();
+            var level = $('#level').val();
+
+            var restaurant = {};
+            restaurant.icon = 'https://avatars3.githubusercontent.com/u/290058?v=3&s=400';
+            restaurant.name = name;
+            restaurant.phoneNumber = phoneNumber;
+            restaurant.email = email;
+            restaurant.city = city;
+            restaurant.address = address;
+            restaurant.level = level;
+            restaurant.classifies = classifies;
+
+            asyncPost('/admin/restaurant/edit/' + '<%= restaurant.id %>', restaurant, function (response) { //请求成功时处理
+                var errMsg = '更新失败';
+                if (response) {
+                    if (response.code == 0) {
+                        showAlert('更新成功', function () {
+                            location.reload();
+                        });
+                        return;
+                    }
+
+                    if (response.message) {
+                        errMsg = response.message;
+                    }
+                }
+
+                showAlert(errMsg);
+            });
+        });
+    });
+</script>
+</body>
+</html>

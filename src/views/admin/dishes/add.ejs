@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>乐餐吧后台———添加菜目</title>
+
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <!--[if lt IE 9]>
+    <script src="/bower_components/respond/dest/respond.min.js"></script>
+    <script src="/bower_components/html5shiv/dist/html5shiv.min.js"></script>
+    <![endif]-->
+</head>
+<body style="font-size: 12px">
+
+<div class="container">
+    <div class="row" style="margin-top: 5px">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div id="container" class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <div class="h1" style="display: inline-block">添加菜目</div>
+                </div>
+
+                <div class="panel-body">
+                    <div class="text-center">
+                        <img src="/images/user_default_icon.png" class="img-rounded"
+                             style="margin-top: 20px; margin-bottom: 20px; width: 100px; height: 100px">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                菜名：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="name" placeholder="请输入菜名">
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                价格：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="price" placeholder="请输入价格">
+                        <div class="input-group-addon">
+                            ￥
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-top: 10px">
+                        <div class="input-group-addon">
+                            <div class="text-right" style="width: 50px">
+                                分类：
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="classify" placeholder="请输入分类">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button id="commitBtn" type="button" class="btn btn-success"
+                            style="margin-top: 20px; margin-bottom: 20px; width: 50%">提交
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+
+        </div>
+    </div>
+</div>
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/bower_components/layer/build/layer.js"></script>
+<script src="/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#commitBtn').click(function () {
+            var name = $('#name').val();
+            if (!name) {
+                showAlert('请输入菜名');
+                return;
+            }
+
+            var price = $('#price').val();
+            if (!price) {
+                showAlert('请输入菜价');
+                return;
+            }
+
+            var classify = $('#classify').val();
+            if (!classify) {
+                showAlert('请输入所属分类');
+                return;
+            }
+
+            var dishes = {};
+            dishes.icon = 'https://avatars3.githubusercontent.com/u/290058?v=3&s=400';
+            dishes.name = name;
+            dishes.price = price;
+            dishes.classify = classify;
+
+            asyncPost('/admin/restaurant/<%= restaurantId %>/dishes/add', dishes, function (response) { //请求成功时处理
+                var errMsg = '添加失败';
+                if (response) {
+                    if (response.code == 0) {
+                        showAlert('添加成功', function () {
+                            location.reload();
+                        });
+                        return;
+                    }
+
+                    if (response.message) {
+                        errMsg = response.message;
+                    }
+                }
+
+                showAlert(errMsg);
+            });
+        });
+    });
+</script>
+</body>
+</html>

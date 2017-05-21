@@ -1,0 +1,907 @@
+@charset "utf-8";
+
+/* 以下是全局设置 */
+
+@font-face {
+    font-family: myCustomFont;
+    src: url('../font/FZLTXH.TTF');
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-size: 15px;
+    font-family: myCustomFont;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #f5f5f5;
+    color: black;
+}
+
+html,
+body,
+address,
+blockquote,
+div,
+dl,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+p,
+pre,
+table,
+ul,
+dd,
+dt,
+li,
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr,
+button,
+del,
+ins,
+map,
+object,
+a,
+abbr,
+acronym,
+b,
+bdo,
+big,
+br,
+cite,
+code,
+dfn,
+em,
+i,
+img,
+kbd,
+q,
+samp,
+small,
+span,
+strong,
+sub,
+sup,
+tt,
+var,
+legend,
+fieldset {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+img,
+fieldset,
+abbr,
+acronym {
+    border: 0 none;
+}
+
+del,
+ins {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+i, b, address {
+    text-decoration: none;
+    font-style: normal;
+    font-weight: lighter;
+}
+
+caption {
+    text-align: left;
+}
+
+time,
+mark {
+    margin: 0px;
+    padding: 0px;
+    background: none
+}
+
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
+
+img {
+    -ms-interpolation-mode: bicubic;
+    max-width: 100%;
+}
+
+label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 15px;
+    font-size: 13px;
+    background-color: #F94D4D;
+    margin-top: 20px;
+}
+
+a {
+    text-decoration: none;
+    text-wrap: normal;
+    word-break: normal;
+    word-wrap: break-word;
+    color: #437abe;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:link {
+    text-decoration: none;
+    text-wrap: normal;
+}
+
+a:visited {
+    text-decoration: none;
+    text-wrap: normal;
+    color: #437abe;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-wrap: normal;
+    color: #fb531f;
+}
+
+a:active {
+    text-decoration: none;
+    text-wrap: normal;
+}
+
+/* 父子选择器 */
+.panel-body > p {
+    padding-top: 20px;
+    text-indent: 2em;
+}
+
+.panel-body > ul {
+    margin-left: 56px;
+    margin-top: 20px;
+}
+
+.panel {
+    border: none;
+}
+
+.panel-heading {
+    border: none;
+}
+
+.panel-default > .panel-heading {
+    background-color: white;
+    border-bottom: 0.5px solid #f0f0f4;
+}
+
+.panel-footer {
+    background-color: white;
+    border-top: none;
+}
+
+.panel > .list-group .list-group-item,
+.panel > .panel-collapse > .list-group .list-group-item {
+    border-width: 0.5px;
+}
+
+.list-group-item {
+    border: 0.5px solid #f0f0f4;
+}
+
+.table-bordered {
+    border: 0.5px solid #f0f0f4;
+}
+
+.table > thead > tr > th {
+    vertical-align: middle;
+}
+
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border: 0.5px solid #f0f0f4;
+}
+
+.panel-body > table {
+    margin-left: 32px;
+    margin-top: 20px;
+    max-width: 90%;
+}
+
+.panel-body > img {
+    margin-left: 32px;
+    margin-top: 20px;
+    max-width: 90%;
+    /*display: inline-block;*/
+}
+
+.panel-body pre {
+    margin-left: 32px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #2e0c24;
+    font-size: 16px;
+    color: white;
+    max-height: 400px;
+    overflow-x: hidden;
+}
+
+.fotorama-container {
+    margin-left: 32px;
+    margin-top: 20px;
+}
+
+.copyright {
+    color: #fff;
+    line-height: 24px;
+    font-size: 13px;
+}
+
+.tag-clouds {
+    margin-left: 32px;
+    margin-right: 32px;
+    margin-top: 20px;
+}
+
+.tag-clouds-item-ie {
+    display: inline-block;
+    width: 150px;
+    line-height: 50px;
+    vertical-align: middle;
+    margin-left: -1px;
+    margin-bottom: -1px;
+    border: 1px solid #f0f0f4;
+}
+
+.tag-clouds-item {
+    display: inline-block;
+    width: 150px;
+    line-height: 50px;
+    vertical-align: middle;
+    margin-left: -1px;
+    margin-bottom: -1px;
+    border: 1px solid #f0f0f4;
+    text-align: center;
+    /*-webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    transition-property: transform;
+    transition-duration: 2s;
+    -moz-transition-property: transform; !* Firefox 4 *!
+    -moz-transition-duration: 2s; !* Firefox 4 *!
+    -webkit-transition-property: transform; !* Safari and Chrome *!
+    -webkit-transition-duration: 2s; !* Safari and Chrome *!
+    -o-transition-property: transform; !* Opera *!
+    -o-transition-duration: 2s; !* Opera *!*/
+
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s
+}
+
+.tag-clouds-item:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #0eb83a;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out
+}
+
+.tag-clouds-item:active:before, .tag-clouds-item:focus:before, .tag-clouds-item:hover:before {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1)
+}
+
+.tag-clouds-item:active, .tag-clouds-item:focus, .tag-clouds-item:hover {
+    color: white;
+}
+
+.tag-clouds-item a {
+    text-decoration: none;
+    color: #437abe;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.key-value-container {
+    margin-top: 10px;
+    position: relative;
+    min-height: 24px;
+}
+
+.key {
+    font-weight: bold;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 85px;
+}
+
+.value {
+    font-weight: lighter;
+    display: inline-block;
+    position: absolute;
+    left: 100px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.center-horizontal-in-parent {
+    display: table;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.clear-float:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* 以下是对Bootstrap的覆盖 */
+
+.h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #112119;
+}
+
+.h2 {
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 20px;
+    color: #ec3c2c;
+}
+
+.h3 {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
+    color: #0aa344;
+}
+
+.h4 {
+    font-size: 18px;
+    font-weight: bold;
+    padding-top: 20px;
+    color: #F94D4D;
+}
+
+.h5 {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 20px;
+    color: #312682;
+}
+
+.h6 {
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 20px;
+    color: gold;
+}
+
+header {
+    background: #222222;
+    width: 100%;
+    height: 50px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+header > .brand {
+    display: inline-block;
+    color: #1bb393;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+header > .nav-menu {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+header > .nav-menu > div {
+    display: inline-block;
+    color: white;
+    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+header > .nav-menu > div:hover {
+    cursor: pointer;
+    background-color: black;
+}
+
+header > .nav-menu > div.active {
+    background-color: black;
+}
+
+header > .menu-icon {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: none;
+}
+
+header > .menu-icon:hover {
+    cursor: pointer;
+}
+
+.sliding-menu {
+    display: none;
+    background-color: white;
+    border: 0.5px solid #f0f0f4;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2147483647;
+    width: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+header > .sliding-menu > span {
+    display: block;
+    text-align: center;
+    padding: 20px;
+}
+
+header > .sliding-menu > span > img {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+    border-radius: 32px;
+}
+
+#register, #loginOrQuit {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 5px 15px;
+    border: 0.5px solid #f0f0f4;
+    border-radius: 4px;
+    font-size: 14px;
+    background: transparent;
+}
+
+#register {
+    margin-left: 10px;
+}
+
+#register:hover, #loginOrQuit:hover {
+    background-color: #f0f0f4;
+}
+
+#sliding-menu-list > div {
+    height: 49px;
+    line-height: 49px;
+    vertical-align: middle;
+    color: black;
+    border: 0.5px solid #f0f0f4;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#sliding-menu-list > div:hover {
+    cursor: pointer;
+    background-color: #f0f0f4;
+}
+
+footer {
+    background: #222;
+    width: 100%;
+    clear: both;
+    text-align: center;
+}
+
+.mask {
+    display: none;
+    background-color: rgba(4, 4, 4, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+}
+
+.FAB-containner {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 2147483646;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background-color: transparent;
+}
+
+.btn-qrcode {
+    display: none;
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 31px;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, .16);
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-qrcode > img {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px;
+    transition: transform 100000s linear 0ms;
+}
+
+.btn-qrcode > img:hover {
+    transform: rotate(18000000deg)
+}
+
+.qrcode-panel {
+    display: none;
+    position: fixed;
+    right: 103px;
+    bottom: 70px;
+    width: 0px;
+    height: 0px;
+    z-index: 2147483646;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: 6px;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, .16);
+    background-color: white;
+    padding: 20px;
+}
+
+.qrcode {
+}
+
+.qrcode-panel > div {
+    font-size: 14px;
+}
+
+/* 以下是对Bootstrap的扩展 */
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.well-transparent {
+    background-color: transparent;
+}
+
+.well-primary {
+    background-color: transparent;
+}
+
+.well-info {
+    background-color: transparent;
+}
+
+.well-warning {
+    background-color: transparent;
+}
+
+.well-danger {
+    background-color: transparent;
+}
+
+.well-success {
+    background-color: transparent;
+}
+
+.badge-red {
+    background-color: #fb531f;
+}
+
+.list-tree {
+    margin-left: 48px;
+    margin-top: 20px;
+    list-style: disc;
+}
+
+.list-tree .list-tree {
+    list-style: decimal;
+    margin-top: -5px;
+}
+
+.list-tree-item {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #21b642;
+    text-indent: 0;
+}
+
+.list-tree-item-title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #21b642;
+}
+
+.list-tree-item-summary {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: black;
+    text-indent: 2em;
+}
+
+.img-thumbnail {
+    border: 1px solid #f0f0f4;
+}
+
+.rounded-top, .img-rounded-top {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.rounded-bottom, .img-rounded-bottom {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.separator {
+    height: 4px;
+    line-height: 4px;
+    vertical-align: middle
+}
+
+.separator > div {
+    display: inline-block;
+    width: 70px;
+    height: 1px;
+    background-color: #f0f0f4;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.separator > span {
+    font-size: 4px;
+    color: lightgrey;
+}
+
+/* 以下是业务相关 */
+.login_welcome {
+    font-size: 20px;
+    color: gray;
+
+    margin-bottom: 15px;
+}
+
+.register_body {
+    background: white;
+    padding-top: 50px;
+
+    font-size: 16px;
+}
+
+.register_body_middle {
+    width: 1000px;
+    margin: 0px auto;
+
+    border: solid 1px #eeeeee;
+    border-radius: 5px;
+
+    background: #eeeeee
+}
+
+.register_title_text {
+    background: #61a2d1;
+    padding: 10px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+    color: white;
+}
+
+.register_body_middle_left_container {
+    width: 600px;
+
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    background: white;
+}
+
+.register_input {
+    width: 60%;
+
+    padding: 10px;
+    background: white;
+
+    border: solid 1px #eeeeee;
+    border-radius: 5px;
+}
+
+/* ----------------------------------------------------------- */
+.btn-logout {
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.mine-user {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.mine-user-icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+}
+
+.mine-user-name {
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+    font-size: 25px;
+}
+
+.mine-user-telephone {
+    display: block;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.item-icon-lg {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+}
+
+.item-icon-md {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.item-icon {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+.item-text {
+    display: inline-block;
+    height: 15px;
+    line-height: 15px;
+    vertical-align: middle;
+    padding-left: 10px;
+    color: #616161;
+    font-size: 15px;
+}
+
+.item-indicator {
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle;
+}
+
+.item-title {
+    display: block;
+    height: 18px;
+    line-height: 18px;
+    vertical-align: middle;
+    color: #616161;
+    font-size: 18px;
+}
+
+.item-summary {
+    display: block;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: middle;
+    color: #616161;
+    font-size: 14px;
+}
+
+.dishes-restaurant-info-div {
+    padding: 15px;
+}
+
+.dishes-panel {
+    max-height: 390px;
+    overflow-y: scroll
+}
+
+.dishes-tab {
+    float: left;
+    width: 70px;
+    margin-bottom: 0px;
+    max-height: 390px;
+    overflow-y: scroll
+}
+
+.dishes-list {
+    max-height: 390px;
+    overflow-y: scroll;
+    margin-bottom: 0px;
+    border-left: 1px solid gainsboro
+}
+
+.dishes-footer-bar {
+    background-color: gainsboro;
+    width: 100%;
+    padding: 10px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px
+}
