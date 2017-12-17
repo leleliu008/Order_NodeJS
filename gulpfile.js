@@ -14,11 +14,18 @@ var minifyejs = require('gulp-minify-ejs');
 //https://github.com/terinjokes/gulp-uglify
 
 
-//1、压缩src/public/js目录下的js文件
+//1、压缩、混淆src/public/js目录下的js文件
 gulp.task('compress-js', function (cb) {
+  var option = {
+    mangle : {
+        toplevel: true,
+        keep_fnames: true,
+        reserved: ['$']
+    }
+  };
   pump([
         gulp.src('src/public/js/**/*.js'),
-        uglify({mangle : true}),
+        uglify(option),
         gulp.dest(outputJSDir)
     ],
     cb
