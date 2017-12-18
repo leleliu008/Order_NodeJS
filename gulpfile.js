@@ -11,7 +11,10 @@ var cleanCSS  = require('gulp-clean-css');
 var minifyejs = require('gulp-minify-ejs');
 
 //https://github.com/mafintosh/pump
+//https://github.com/gulpjs/gulp
 //https://github.com/terinjokes/gulp-uglify
+//https://github.com/scniro/gulp-clean-css
+//https://github.com/cynosureabu/gulp-min-ejs
 
 
 //1、压缩、混淆src/public/js目录下的js文件
