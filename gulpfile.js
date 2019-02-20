@@ -67,7 +67,7 @@ const tasks = {
     }
 };
 
-for(var key in tasks) {
+for(const key in tasks) {
     gulp.task(key, tasks[key]);
 }
 
