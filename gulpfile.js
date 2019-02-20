@@ -1,4 +1,4 @@
-const outputDir       = 'build';
+const outputDir = 'build';
 
 //https://github.com/mafintosh/pump
 const pump      = require('pump');
