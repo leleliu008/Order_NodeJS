@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": "8.x.x"
+    "node": "10.x.x"
   },
   "scripts": {
-    "start": "cd src/private && ../../node_modules/supervisor/lib/cli-wrapper.js --ignore views --timestamp -V server.js",
-    "build": "node_modules/gulp/bin/gulp.js"
+    "dev": "supervisor --watch src/private --ignore --timestamp -V src/private/server.js",
+    "start": "node ./build/private/server.js",
+    "gulp": "gulp"
   },
   "dependencies": {
     "blueimp-md5": "^2.1.0",
