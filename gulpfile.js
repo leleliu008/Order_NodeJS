@@ -71,4 +71,4 @@ for(const key in tasks) {
     gulp.task(key, tasks[key]);
 }
 
-gulp.task('default', Object.keys(tasks));
+gulp.task('default', gulp.parallel(...Object.keys(tasks)));
