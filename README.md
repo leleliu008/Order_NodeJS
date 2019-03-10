@@ -3,5 +3,17 @@
 </br></br>
 该Web App的开发详情请查看：http://blog.fpliu.com/it/software/development/language/NodeJS/develop-web-app
 </br></br>
-该Web App部署在了<a href="https://www.azure.cn" target="_black">Windwos Azure</a>云平台上，网址：http://order.fpliu.com ，
-测试用户名：test，密码：123456
+
+## 部署在Docker中
+1、构建镜像：
+```
+docker-compose build
+```
+2、运行容器：
+```
+docker-compose up -d
+```
+3、访问服务：
+```
+http://localhost:3000
+```
