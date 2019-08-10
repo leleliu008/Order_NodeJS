@@ -12,6 +12,7 @@ npm install --registry=https://registry.npm.taobao.org
 cd src/public
 npx bower install
 cd -
+npx gulp
 npm start
 ```
 ## 在Docker中部署
