@@ -4,7 +4,17 @@
 该`Web App`的开发详情请查看：http://blog.fpliu.com/it/software/development/language/NodeJS/develop-web-app
 </br></br>
 
-## 部署在Docker中
+## 在本地部署
+```
+git clone https://github.com/leleliu008/Order_NodeJS.git
+cd Order_NodeJS
+npm install --registry=https://registry.npm.taobao.org
+cd src/public
+npx bower install
+cd -
+npm start
+```
+## 在Docker中部署
 1、下载代码、安装依赖模块、构建：
 ```
 git clone https://github.com/leleliu008/Order_NodeJS.git
