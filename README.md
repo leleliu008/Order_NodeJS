@@ -5,7 +5,7 @@
 </br></br>
 
 ## 在本地部署
-1、安装依赖工具：<a href="http://blog.fpliu.com/it/software/node-interpreter">Node.js解释器</a>、<a href="http://blog.fpliu.com/it/software/npm">npm</a>、<a href="http://blog.fpliu.com/it/software/git">git</a><br><br>
+1、安装依赖工具：<a href="http://blog.fpliu.com/it/software/nodejs-interpreter">Node.js解释器</a>、<a href="http://blog.fpliu.com/it/software/npm">npm</a>、<a href="http://blog.fpliu.com/it/software/git">git</a><br><br>
 2、下载代码、安装依赖模块、构建、启动服务：
 ```
 git clone https://github.com/leleliu008/Order_NodeJS.git
