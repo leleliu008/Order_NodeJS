@@ -7,8 +7,8 @@
 ## 部署在Docker中
 1、下载代码、安装依赖模块、构建：
 ```
-git clone https://github.com/leleliu008/NBSPRC-spider-nodejs.git
-cd NBSPRC-spider-nodejs
+git clone https://github.com/leleliu008/Order_NodeJS.git
+cd Order_NodeJS
 npm install --registry=https://registry.npm.taobao.org
 cd src/public
 npx bower install
