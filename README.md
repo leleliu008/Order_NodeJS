@@ -22,7 +22,8 @@ npm start
 http://localhost:3000
 ```
 ## 在Docker中部署
-1、下载代码、安装依赖模块、构建：
+1、安装依赖工具：<a href="http://blog.fpliu.com/it/software/nodejs-interpreter">Node.js解释器</a>、<a href="http://blog.fpliu.com/it/software/npm">npm</a>、<a href="http://blog.fpliu.com/it/software/git">git</a>、<a href="http://blog.fpliu.com/it/software/Docker">Docker</a><br><br>
+2、下载代码、安装依赖模块、构建：
 ```
 git clone https://github.com/leleliu008/Order_NodeJS.git
 cd Order_NodeJS
@@ -32,15 +33,15 @@ npx bower install
 cd -
 npx gulp
 ```
-2、构建镜像：
+3、构建镜像：
 ```
 docker-compose build
 ```
-3、运行容器：
+4、运行容器：
 ```
 docker-compose up -d
 ```
-4、访问服务：
+5、访问服务：
 ```
 http://localhost:3000
 ```
