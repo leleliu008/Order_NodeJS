@@ -5,6 +5,7 @@
 </br></br>
 
 ## 在本地部署
+1、下载代码、安装依赖模块、构建、启动服务：
 ```
 git clone https://github.com/leleliu008/Order_NodeJS.git
 cd Order_NodeJS
@@ -14,6 +15,10 @@ npx bower install
 cd -
 npx gulp
 npm start
+```
+2、访问服务：
+```
+http://localhost:3000
 ```
 ## 在Docker中部署
 1、下载代码、安装依赖模块、构建：
