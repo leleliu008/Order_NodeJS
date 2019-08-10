@@ -5,7 +5,8 @@
 </br></br>
 
 ## 在本地部署
-1、下载代码、安装依赖模块、构建、启动服务：
+1、安装依赖工具：<a href="http://blog.fpliu.com/it/software/node-interpreter">Node.js解释器</a>、<a href="http://blog.fpliu.com/it/software/npm">npm</a>、<a href="http://blog.fpliu.com/it/software/git">git</a>。
+2、下载代码、安装依赖模块、构建、启动服务：
 ```
 git clone https://github.com/leleliu008/Order_NodeJS.git
 cd Order_NodeJS
@@ -16,7 +17,7 @@ cd -
 npx gulp
 npm start
 ```
-2、访问服务：
+3、访问服务：
 ```
 http://localhost:3000
 ```
